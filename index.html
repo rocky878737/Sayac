@@ -395,6 +395,61 @@ body{transition:background-color .4s,color .4s}
 </section>
 <p class="date">27 Temmuz 2026'dan beri</p>
 <script>
+/* ---- Bulut senkronu (Supabase) ---- */
+var SB={url:"https://guirjtvreaxcawnssaun.supabase.co",key:"sb_publishable_ufvIYTE5WKOjFAOWOo7k1A_4-7N7Mtc"};
+(function(){
+  var LS,setO=Storage.prototype.setItem,remO=Storage.prototype.removeItem;
+  try{LS=window.localStorage;}catch(e){return;}
+  var H={"apikey":SB.key,"Content-Type":"application/json"};
+  var SKIP={tema:1,__ts:1,__rl:1},timers={};
+  function getTs(){try{return JSON.parse(LS.getItem("__ts"))||{};}catch(e){return {};}}
+  function setTs(k,t){var m=getTs();m[k]=t;try{setO.call(LS,"__ts",JSON.stringify(m));}catch(e){}}
+  function send(k,v,t){
+    try{
+      fetch(SB.url+"/rest/v1/kv?on_conflict=key",{method:"POST",
+        headers:{"apikey":SB.key,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates,return=minimal"},
+        body:JSON.stringify({key:k,value:v,updated_at:new Date(t).toISOString()})}).catch(function(){});
+    }catch(e){}
+  }
+  function push(k,v){
+    var t=Date.now();setTs(k,t);
+    clearTimeout(timers[k]);
+    timers[k]=setTimeout(function(){send(k,v,t);},700);
+  }
+  Storage.prototype.setItem=function(k,v){setO.call(this,k,v);if(this===LS&&!SKIP[k])push(k,String(v));};
+  Storage.prototype.removeItem=function(k){remO.call(this,k);if(this===LS&&!SKIP[k])push(k,null);};
+
+  /* açılışta: buluttaki daha yeni veriyi al, telefondaki daha yeniyi/eksiği buluta gönder */
+  try{
+    fetch(SB.url+"/rest/v1/kv?select=key,updated_at",{headers:H}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(rows){
+      var local=getTs(),remote={},need=[];
+      rows.forEach(function(r){if(r.key.indexOf("ses:")!==0&&!SKIP[r.key])remote[r.key]=Date.parse(r.updated_at);});
+      Object.keys(remote).forEach(function(k){if(!(local[k]>=remote[k]))need.push(k);});
+      for(var i=0;i<LS.length;i++){
+        var k=LS.key(i);if(SKIP[k]||need.indexOf(k)>=0)continue;
+        if(remote[k]===undefined||local[k]>remote[k]){
+          var t=local[k]||Date.now();setTs(k,t);send(k,LS.getItem(k),t);
+        }
+      }
+      if(!need.length)return;
+      var q=need.map(function(k){return '"'+k+'"';}).join(",");
+      return fetch(SB.url+"/rest/v1/kv?select=key,value,updated_at&key=in.("+encodeURIComponent(q)+")",{headers:H})
+        .then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(got){
+          var changed=false;
+          got.forEach(function(r){
+            try{
+              if(r.value===null)remO.call(LS,r.key);else setO.call(LS,r.key,r.value);
+              setTs(r.key,Date.parse(r.updated_at));changed=true;
+            }catch(e){}
+          });
+          if(changed){
+            var last=0;try{last=+sessionStorage.getItem("__rl")||0;}catch(e){}
+            if(Date.now()-last>15000){try{sessionStorage.setItem("__rl",String(Date.now()));}catch(e){}location.reload();}
+          }
+        });
+    }).catch(function(){});
+  }catch(e){}
+})();
 var start=new Date(2026,6,27,0,0,0);
 function p(n){return String(n).padStart(2,"0")}
 function tick(){
@@ -1019,19 +1074,58 @@ for(var k in S){
       sp.textContent=ds+" · "+fmt(r.s);
       var b=document.createElement("button");b.type="button";b.className="mini";b.textContent="Sil";
       b.addEventListener("click",function(){
-        if(b.dataset.sure==="1"){del(r.id,function(){items=items.filter(function(x){return x.id!==r.id;});render();});return;}
+        if(b.dataset.sure==="1"){del(r.id,function(){items=items.filter(function(x){return x.id!==r.id;});render();remDel(r);});return;}
         b.dataset.sure="1";b.textContent="Emin misin? Sil";b.classList.add("pri");
         setTimeout(function(){if(b.isConnected){b.dataset.sure="";b.textContent="Sil";b.classList.remove("pri");}},3500);
       });
       meta.appendChild(sp);meta.appendChild(b);
       var a=document.createElement("audio");a.controls=true;a.preload="metadata";
-      var u=URL.createObjectURL(r.blob);urls.push(u);a.src=u;
+      var u=r.url;if(!u){u=URL.createObjectURL(r.blob);urls.push(u);}a.src=u;
       a.setAttribute("aria-label","Ses kaydı, "+fmt(r.s));
       li.appendChild(meta);li.appendChild(a);list.appendChild(li);
     });
   }
+  var SBU=SB.url,SBH={apikey:SB.key};
+  function ext(t){t=(t||"").toLowerCase();return t.indexOf("mp4")>=0?"m4a":t.indexOf("ogg")>=0?"ogg":t.indexOf("mpeg")>=0?"mp3":"webm";}
+  function pubUrl(p){return SBU+"/storage/v1/object/public/medya/"+p;}
+  function upload(r,cb){
+    var path="ses/"+r.id+"."+ext(r.blob.type);
+    fetch(SBU+"/storage/v1/object/medya/"+path,{method:"POST",
+      headers:{apikey:SB.key,"Content-Type":(r.blob.type||"audio/webm").split(";")[0],"x-upsert":"true"},body:r.blob})
+    .then(function(x){
+      if(!x.ok)throw 0;
+      return fetch(SBU+"/rest/v1/kv?on_conflict=key",{method:"POST",
+        headers:{apikey:SB.key,"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"},
+        body:JSON.stringify({key:"ses:"+r.id,value:{id:r.id,d:r.d,s:r.s,p:path},updated_at:new Date().toISOString()})});
+    })
+    .then(function(x){if(!x.ok)throw 0;r.url=pubUrl(path);r.p=path;cb(true);})
+    .catch(function(){cb(false);});
+  }
+  function remDel(r){
+    if(!r.p)return;
+    try{
+      fetch(SBU+"/storage/v1/object/medya/"+r.p,{method:"DELETE",headers:SBH}).catch(function(){});
+      fetch(SBU+"/rest/v1/kv?key=eq."+encodeURIComponent("ses:"+r.id),{method:"DELETE",headers:SBH}).catch(function(){});
+    }catch(e){}
+  }
+  function loadRemote(cb){
+    fetch(SBU+"/rest/v1/kv?select=value&key=like."+encodeURIComponent("ses:*"),{headers:SBH})
+    .then(function(x){if(!x.ok)throw 0;return x.json();})
+    .then(function(rows){cb(rows.filter(function(r){return r.value&&r.value.p;}).map(function(r){var v=r.value;return {id:v.id,d:v.d,s:v.s,p:v.p,url:pubUrl(v.p)};}));})
+    .catch(function(){cb(null);});
+  }
   openDb(function(){
-    all(function(rs){items=rs;render();});
+    all(function(loc){
+      items=loc;render();
+      loadRemote(function(rem){
+        if(!rem)return;
+        var ids={};rem.forEach(function(r){ids[r.id]=1;});
+        var pend=loc.filter(function(r){return !ids[r.id];});
+        loc.forEach(function(r){if(ids[r.id])del(r.id,function(){});});
+        items=rem.concat(pend);render();
+        pend.forEach(function(r){upload(r,function(ok){if(ok){del(r.id,function(){});render();}});});
+      });
+    });
     try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
   });
 
@@ -1067,7 +1161,11 @@ for(var k in S){
         var r={id:Date.now(),d:Date.now(),s:secs,blob:blob};
         put(r,function(ok){
           items.push(r);render();
-          say(ok?"Kaydedildi ✓":"Kaydedildi ama bu tarayıcıda kalıcı olmayabilir. Sayfayı kapatma.");
+          say("Buluta yükleniyor…");
+          upload(r,function(up){
+            if(up){del(r.id,function(){});render();say("Kaydedildi ✓ Karşı taraf da dinleyebilir.");}
+            else say(ok?"Telefona kaydedildi ama buluta yüklenemedi. İnternet olunca sayfayı yeniden aç, kendiliğinden yüklenir.":"Kaydedilemedi, tekrar dene.");
+          });
         });
       };
       rec.start();t0=Date.now();
