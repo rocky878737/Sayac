@@ -476,6 +476,7 @@ body{background:transparent}
 <h2>Canlı sohbet 💬</h2>
 <div class="row2" role="group" aria-label="Sen kimsin"><button type="button" class="mini" data-c="Ramazan">Ben Ramazan</button><button type="button" class="mini" data-c="Ayten">Ben Ayten</button></div>
 <p class="ohint durum" id="cdurum" aria-live="polite"></p>
+<div class="row2"><button type="button" class="mini" id="cbil">🔔 Bildirimi dene</button></div>
 <div class="box" id="cbox" aria-live="polite"></div>
 <p class="ohint" id="cmsg"></p>
 <div class="snd"><textarea id="cta" maxlength="500" placeholder="Mesaj yaz…" aria-label="Mesaj" rows="1"></textarea><button type="button" class="mini pri" id="csend">Gönder</button></div>
@@ -495,7 +496,8 @@ body{background:transparent}
 <li><b>Aşk botu:</b> Önce kim olduğunu seç, sorunu yaz veya önerilen düğmelere bas. <b>Sohbeti temizle</b> geçmişi siler.</li></ul></details>
 <details><summary>📜 Aşk taahhütnamesi</summary><ul><li>Maddeleri okuyabilir, kutuya yeni madde yazıp <b>Madde ekle</b> ile ekleyebilirsin.</li><li>Aşağıda her birinizin <b>✍️ İmzala</b> düğmesi var, kendi adının altındakine bas.</li><li>İmzayı geri almak için <b>İmzaları geri al</b>’a bas.</li></ul></details>
 <details><summary>🤫 İtiraf köşesi</summary><ul><li>Önce kim olduğunu seç: <b>Ramazan</b> veya <b>Ayten</b>.</li><li>Ne yazacağını bilmiyorsan <b>Bana bir başlangıç ver</b>’e bas, bir cümle başlangıcı gelir.</li><li><b>İtiraf et</b> ile kaydedersin. Yazdıkların altta listelenir ve karşı taraf da okuyabilir.</li></ul></details>
-<details><summary>💬 Canlı sohbet</summary><ul><li>İlk açışta <b>Ben Ramazan</b> veya <b>Ben Ayten</b>’i seç. Telefon bunu hatırlar.</li><li>Mesajı yazıp <b>Gönder</b>’e bas ya da klavyede Enter’a bas. Alt satıra geçmek için <b>Shift + Enter</b> kullan (bilgisayarda).</li><li>Sayfa açıkken yeni mesajlar birkaç saniyede kendiliğinden gelir, yenilemene gerek yok.</li><li>Kendi mesajının altındaki <b>Sil</b>’e dokun, “Emin misin? Sil” çıkınca tekrar dokun. Mesaj iki tarafta da silinir. Karşı tarafın mesajını silemezsin.</li><li>Üstteki yazıda karşı tarafın <b>🟢 şu an sohbette</b> mi yoksa en son ne zaman göründüğü yazar. Bunun çalışması için ikinizin de kim olduğunu seçmiş olması gerekir.</li><li>Sayfa kapalıyken mesaj geldiğini fark etmezsin, bildirim yok. Karşı tarafa haber vermek istersen başka yerden yaz.</li></ul></details>
+<details><summary>💬 Canlı sohbet</summary><ul><li>İlk açışta <b>Ben Ramazan</b> veya <b>Ben Ayten</b>’i seç. Telefon bunu hatırlar.</li><li>Mesajı yazıp <b>Gönder</b>’e bas ya da klavyede Enter’a bas. Alt satıra geçmek için <b>Shift + Enter</b> kullan (bilgisayarda).</li><li>Sayfa açıkken yeni mesajlar birkaç saniyede kendiliğinden gelir, yenilemene gerek yok.</li><li>Kendi mesajının altındaki <b>Sil</b>’e dokun, “Emin misin? Sil” çıkınca tekrar dokun. Mesaj iki tarafta da silinir. Karşı tarafın mesajını silemezsin.</li><li>Üstteki yazıda karşı tarafın <b>🟢 şu an sohbette</b> mi yoksa en son ne zaman göründüğü yazar. Bunun çalışması için ikinizin de kim olduğunu seçmiş olması gerekir.</li><li>Telefonuna bildirim gelmesi için aşağıdaki <b>🔔 Bildirimler</b> bölümüne bak.</li></ul></details>
+<details><summary>🔔 Bildirimler</summary><ul><li>Karşı taraf sohbette mesaj yazınca veya XOX’ta hamle yapınca telefonuna bildirim düşer. Sayfa kapalıyken de gelir.</li><li>Bunun için <b>ntfy</b> uygulaması gerekir (App Store veya Play Store, ücretsiz, hesap gerekmez).</li><li>Uygulamayı aç, <b>+</b> düğmesine bas, sana verilen <b>kanal adını</b> yaz ve <b>Subscribe</b>’a bas. Sunucu olarak varsayılanı (ntfy.sh) bırak.</li><li>Telefonda ntfy için bildirim iznini aç.</li><li>Sohbet bölümündeki <b>🔔 Bildirimi dene</b> düğmesi kendi telefonuna deneme bildirimi yollar. Gelmezse kanal adını ve izni kontrol et.</li><li>Bildirimde mesajın metni yazmaz, sadece yazdığı görünür. Mesajı okumak için bildirime dokunup siteyi aç.</li></ul></details>
 <details><summary>🛠️ Bir şey çalışmazsa</summary><ul><li><b>Eklediğim şey karşı tarafta görünmüyor:</b> İnternet açık mı bak, sayfayı tamamen kapatıp yeniden aç.</li><li><b>“Bağlantı yok” yazıyor:</b> İnterneti kontrol et, kendiliğinden tekrar dener.</li><li><b>Mesaj “gönderilemedi” diyor:</b> İnterneti kontrol edip mesajı tekrar yaz.</li><li><b>Eski haline dönmüş gibi:</b> Sayfa yeni dosyayla güncellendiyse tarayıcı eskisini tutuyor olabilir. Sayfayı kapatıp yeniden aç ya da yenile.</li><li><b>“Yer doldu” yazıyor (fotoğraf):</b> Bir fotoğrafı silip tekrar dene.</li><li><b>Hâlâ olmuyor:</b> Ramazan’a yaz 🙂</li></ul></details>
 </div>
 </section>
@@ -503,6 +505,18 @@ body{background:transparent}
 <script>
 /* ---- Bulut senkronu (Supabase) ---- */
 var SB={url:"https://guirjtvreaxcawnssaun.supabase.co",key:"sb_publishable_ufvIYTE5WKOjFAOWOo7k1A_4-7N7Mtc"};
+/* ---- Bildirim (ntfy.sh) ---- */
+var NT={Ramazan:"ra27-r-1818ed98273fdb1db9",Ayten:"ra27-a-5e4f945b756a78a7d5"},NTLAST={};
+function bildir(kime,baslik,mesaj,anahtar,bekle){
+  try{
+    var t=NT[kime];if(!t)return;
+    var n=Date.now();
+    if(anahtar){if(NTLAST[anahtar]&&n-NTLAST[anahtar]<(bekle||0))return;NTLAST[anahtar]=n;}
+    var u=location.href.split("#")[0];
+    var url="https://ntfy.sh/"+t+"/publish?title="+encodeURIComponent(baslik)+"&message="+encodeURIComponent(mesaj)+"&tags=heart&click="+encodeURIComponent(u);
+    fetch(url,{mode:"no-cors"}).catch(function(){});
+  }catch(e){}
+}
 (function(){
   var LS,setO=Storage.prototype.setItem,remO=Storage.prototype.removeItem;
   try{LS=window.localStorage;}catch(e){return;}
@@ -1389,9 +1403,14 @@ for(var k in S){
     M[k]={w:me,t:v,d:d,pending:true};ta.value="";cm.textContent="";draw(true);
     fetch(SB.url+"/rest/v1/kv",{method:"POST",headers:{apikey:SB.key,"Content-Type":"application/json",Prefer:"return=minimal"},
       body:JSON.stringify({key:k,value:val,updated_at:new Date(d).toISOString()})})
-    .then(function(r){if(!r.ok)throw 0;M[k]=val;draw(true);})
+    .then(function(r){if(!r.ok)throw 0;M[k]=val;draw(true);bildir(other(),"💌 "+me,me+" sana mesaj yazdı","msg",20000);})
     .catch(function(){M[k]={w:me,t:v,d:d,fail:true};draw(true);cm.textContent="Mesaj gönderilemedi. İnterneti kontrol edip tekrar yaz.";});
   }
+  document.getElementById("cbil").addEventListener("click",function(){
+    if(!me){cm.textContent="Önce yukarıdan kim olduğunu seç.";return;}
+    bildir(me,"🔔 Deneme","Bildirimler çalışıyor 💜");
+    cm.textContent="Deneme bildirimi gönderildi. Birkaç saniye içinde telefonuna düşmeli.";
+  });
   sb.addEventListener("click",send);
   ta.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();send();}});
   document.addEventListener("visibilitychange",function(){if(!document.hidden){poll();beat();presence();}});
@@ -1449,11 +1468,11 @@ for(var k in S){
     st.textContent=t;
     sc.textContent="Ramazan ❌ "+G.s.X+"  ·  Berabere "+G.s.B+"  ·  Ayten ⭕ "+G.s.O;
   }
-  function save(g,prev){
+  function save(g,prev,ok){
     fetch(SB.url+"/rest/v1/kv?on_conflict=key",{method:"POST",
       headers:{apikey:SB.key,"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"},
       body:JSON.stringify({key:KEY,value:g,updated_at:new Date().toISOString()})})
-    .then(function(r){if(!r.ok)throw 0;xm.textContent="";})
+    .then(function(r){if(!r.ok)throw 0;xm.textContent="";if(ok)ok();})
     .catch(function(){if(G===g){G=prev;draw();}xm.textContent="Hamle gönderilemedi, internetini kontrol edip tekrar dene.";});
   }
   function move(i){
@@ -1462,7 +1481,13 @@ for(var k in S){
     g.b[i]=s;g.w=result(g.b);
     if(g.w){g.s[g.w]=(g.s[g.w]||0)+1;}
     g.t=s==="X"?"O":"X";g.n=prev.n+1;
-    G=g;draw();save(g,prev);
+    G=g;draw();
+    save(g,prev,function(){
+      var o=me==="Ramazan"?"Ayten":"Ramazan",os=s==="X"?"⭕":"❌";
+      if(g.w==="B")bildir(o,"❌⭕ XOX","Oyun berabere bitti 🤝","xox",0);
+      else if(g.w)bildir(o,"❌⭕ XOX",me+" oyunu kazandı 🎉","xox",0);
+      else bildir(o,"❌⭕ XOX",me+" hamle yaptı, sıra sende "+(o==="Ramazan"?"❌":"⭕"),"xox",8000);
+    });
   }
   nb.addEventListener("click",function(){
     var moved=G.b.some(function(c){return c;});
