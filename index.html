@@ -149,6 +149,15 @@ body{transition:background-color .4s,color .4s}
 .zarf .who:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .zarf .ed{background:var(--card);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px}
 
+.chat{width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px}
+.chat .box{background:var(--card);border-radius:14px;padding:10px;height:min(55vh,420px);overflow-y:auto;display:flex;flex-direction:column;gap:6px}
+.chat .b{max-width:80%;padding:8px 12px;border-radius:16px;white-space:pre-wrap;word-break:break-word;background:var(--bg);color:var(--ink);align-self:flex-start;border-bottom-left-radius:4px}
+.chat .b.me{align-self:flex-end;background:var(--accent);color:var(--btn-ink);border-radius:16px;border-bottom-right-radius:4px}
+.chat .b small{display:block;font-size:.7rem;opacity:.7;margin-top:2px}
+.chat .snd{display:flex;gap:8px;align-items:flex-end}
+.chat .snd textarea{flex:1;min-height:44px;max-height:120px;font:inherit;font-size:1rem;background:var(--bg);color:var(--ink);border:1px solid var(--soft);border-radius:14px;padding:10px;resize:none}
+.chat .snd textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.chat .snd .mini{padding:11px 16px}
 .ses{width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px}
 .sesrec{display:flex;flex-direction:column;align-items:center;gap:10px;background:var(--card);border-radius:16px;padding:16px}
 .recbtn{font:inherit;font-size:1.1rem;color:var(--btn-ink);background:var(--accent);border:0;border-radius:999px;padding:13px 30px;cursor:pointer}
@@ -393,6 +402,13 @@ body{transition:background-color .4s,color .4s}
 </div>
 <ul id="ilist" class="dlist"></ul>
 </section>
+<section class="chat">
+<h2>Canlı sohbet 💬</h2>
+<div class="row2" role="group" aria-label="Sen kimsin"><button type="button" class="mini" data-c="Ramazan">Ben Ramazan</button><button type="button" class="mini" data-c="Ayten">Ben Ayten</button></div>
+<div class="box" id="cbox" aria-live="polite"></div>
+<p class="ohint" id="cmsg"></p>
+<div class="snd"><textarea id="cta" maxlength="500" placeholder="Mesaj yaz…" aria-label="Mesaj" rows="1"></textarea><button type="button" class="mini pri" id="csend">Gönder</button></div>
+</section>
 <p class="date">27 Temmuz 2026'dan beri</p>
 <script>
 /* ---- Bulut senkronu (Supabase) ---- */
@@ -401,7 +417,7 @@ var SB={url:"https://guirjtvreaxcawnssaun.supabase.co",key:"sb_publishable_ufvIY
   var LS,setO=Storage.prototype.setItem,remO=Storage.prototype.removeItem;
   try{LS=window.localStorage;}catch(e){return;}
   var H={"apikey":SB.key,"Content-Type":"application/json"};
-  var SKIP={tema:1,__ts:1,__rl:1},timers={};
+  var SKIP={tema:1,__ts:1,__rl:1,sohbetkim:1},timers={};
   function getTs(){try{return JSON.parse(LS.getItem("__ts"))||{};}catch(e){return {};}}
   function setTs(k,t){var m=getTs();m[k]=t;try{setO.call(LS,"__ts",JSON.stringify(m));}catch(e){}}
   function send(k,v,t){
@@ -421,9 +437,9 @@ var SB={url:"https://guirjtvreaxcawnssaun.supabase.co",key:"sb_publishable_ufvIY
 
   /* açılışta: buluttaki daha yeni veriyi al, telefondaki daha yeniyi/eksiği buluta gönder */
   try{
-    fetch(SB.url+"/rest/v1/kv?select=key,updated_at",{headers:H}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(rows){
+    fetch(SB.url+"/rest/v1/kv?select=key,updated_at&key=not.like.ses:*&key=not.like.msg:*",{headers:H}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(rows){
       var local=getTs(),remote={},need=[];
-      rows.forEach(function(r){if(r.key.indexOf("ses:")!==0&&!SKIP[r.key])remote[r.key]=Date.parse(r.updated_at);});
+      rows.forEach(function(r){if(r.key.indexOf("ses:")!==0&&r.key.indexOf("msg:")!==0&&!SKIP[r.key])remote[r.key]=Date.parse(r.updated_at);});
       Object.keys(remote).forEach(function(k){if(!(local[k]>=remote[k]))need.push(k);});
       for(var i=0;i<LS.length;i++){
         var k=LS.key(i);if(SKIP[k]||need.indexOf(k)>=0)continue;
@@ -1182,6 +1198,58 @@ for(var k in S){
     if(rec&&rec.state==="recording"){try{rec.stop();}catch(e){cleanup();}}
     else start();
   });
+})();
+
+/* ---- Canlı sohbet ---- */
+(function(){
+  var box=document.getElementById("cbox"),ta=document.getElementById("cta"),sb=document.getElementById("csend"),cm=document.getElementById("cmsg");
+  var cb=[].slice.call(document.querySelectorAll(".chat [data-c]")),me="";
+  try{me=localStorage.getItem("sohbetkim")||"";}catch(e){}
+  function mark(){cb.forEach(function(b){b.classList.toggle("pri",b.dataset.c===me);});}
+  cb.forEach(function(b){b.addEventListener("click",function(){me=b.dataset.c;try{localStorage.setItem("sohbetkim",me);}catch(e){}mark();draw(true);});});
+  mark();
+  var H={apikey:SB.key,"Content-Type":"application/json"},M={},busy=false;
+  function fmt(d){try{return new Date(d).toLocaleString("tr-TR",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});}catch(e){return "";}}
+  function draw(force){
+    var ks=Object.keys(M).sort();
+    var near=box.scrollHeight-box.scrollTop-box.clientHeight<80;
+    box.innerHTML="";
+    if(!ks.length){var p=document.createElement("p");p.className="ohint";p.textContent="Henüz mesaj yok. İlk mesajı sen yaz 💌";box.appendChild(p);}
+    ks.forEach(function(k){
+      var m=M[k],d=document.createElement("div");d.className="b"+(m.w===me?" me":"");
+      d.appendChild(document.createTextNode(m.t));
+      var s=document.createElement("small");s.textContent=(m.w===me?"":m.w+" · ")+fmt(m.d)+(m.pending?" · gönderiliyor":"")+(m.fail?" · gönderilemedi":"");
+      d.appendChild(s);box.appendChild(d);
+    });
+    if(force||near)box.scrollTop=box.scrollHeight;
+  }
+  function poll(){
+    if(busy||document.hidden)return;busy=true;
+    fetch(SB.url+"/rest/v1/kv?select=key,value&key=like."+encodeURIComponent("msg:*")+"&order=key.desc&limit=100",{headers:H})
+    .then(function(r){if(!r.ok)throw 0;return r.json();})
+    .then(function(rows){
+      var N={},ch=false;
+      Object.keys(M).forEach(function(k){if(M[k].pending||M[k].fail)N[k]=M[k];});
+      rows.forEach(function(r){if(r.value&&r.value.t){N[r.key]=r.value;}});
+      if(Object.keys(N).sort().join()!==Object.keys(M).sort().join())ch=true;
+      M=N;cm.textContent="";if(ch||!box.children.length)draw(false);busy=false;
+    }).catch(function(){busy=false;cm.textContent="Bağlantı yok, tekrar deneniyor…";});
+  }
+  function send(){
+    var v=ta.value.trim();if(!v){ta.focus();return;}
+    if(!me){cm.textContent="Önce yukarıdan kim olduğunu seç.";return;}
+    var d=Date.now(),k="msg:"+d+"-"+Math.random().toString(36).slice(2,6);
+    var val={w:me,t:v,d:d};
+    M[k]={w:me,t:v,d:d,pending:true};ta.value="";cm.textContent="";draw(true);
+    fetch(SB.url+"/rest/v1/kv",{method:"POST",headers:{apikey:SB.key,"Content-Type":"application/json",Prefer:"return=minimal"},
+      body:JSON.stringify({key:k,value:val,updated_at:new Date(d).toISOString()})})
+    .then(function(r){if(!r.ok)throw 0;M[k]=val;draw(true);})
+    .catch(function(){M[k]={w:me,t:v,d:d,fail:true};draw(true);cm.textContent="Mesaj gönderilemedi. İnterneti kontrol edip tekrar yaz.";});
+  }
+  sb.addEventListener("click",send);
+  ta.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();send();}});
+  document.addEventListener("visibilitychange",function(){if(!document.hidden)poll();});
+  draw(true);poll();setInterval(poll,3000);
 })();
 
 /* ---- Konfeti ---- */
