@@ -35,6 +35,10 @@ h1{font-size:clamp(2rem,9vw,3.4rem);font-weight:400;font-style:italic;text-align
 .note{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;text-align:center}
 .note small{display:block;color:var(--soft);font-size:.85rem;margin-bottom:8px}
 .note p{font-size:1.2rem;line-height:1.5;font-style:italic}
+.note textarea{width:100%;font:inherit;font-size:1rem;background:var(--bg);color:var(--ink);border:1px solid var(--soft);border-radius:12px;padding:10px;resize:none;margin:10px 0 6px}
+.note textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.note #nwho{margin:6px 0 0;min-height:1em}
+.note .row2{margin-top:10px}
 h2{font-size:1.3rem;font-weight:400;font-style:italic;text-align:center}
 .sky{width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .sky canvas{width:100%;aspect-ratio:1/1;display:block}
@@ -62,6 +66,25 @@ body{background:transparent}
 @keyframes atis{0%{opacity:0}12%{opacity:.75}28%{opacity:.12}42%{opacity:.6}100%{opacity:0}}
 .atar{animation:atar 1s ease-out 2}
 @keyframes atar{0%{transform:scale(1)}12%{transform:scale(1.07)}28%{transform:scale(1.0)}42%{transform:scale(1.05)}100%{transform:scale(1)}}
+.gq{font-size:1.15rem;line-height:1.45;text-align:center;min-height:5.5em;display:flex;align-items:center;justify-content:center;margin:6px 0 12px}
+.gopts{display:flex;flex-direction:column;gap:8px;width:100%;max-width:340px;margin:0 auto}
+.gopt{font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--soft);border-radius:14px;padding:12px 14px;cursor:pointer;text-align:center}
+.gopt:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.gopt.sel{background:var(--accent);color:var(--btn-ink);border-color:var(--accent)}
+.gbar{height:10px;background:var(--bg);border-radius:6px;overflow:hidden;margin:4px 0 12px}
+.gbar>i{display:block;height:100%;background:var(--accent);border-radius:6px;width:0;transition:width .9s ease}
+.gcat{display:flex;justify-content:space-between;font-size:.95rem;margin-top:6px}
+.gres{width:100%;max-width:340px;margin:0 auto;text-align:left}
+#tcv{display:block;width:100%;max-width:380px;aspect-ratio:4/5;margin:0 auto;background:var(--card);border:1px solid var(--soft);border-radius:14px;touch-action:none;cursor:crosshair}
+.tbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
+.tcol{width:34px;height:34px;border-radius:50%;border:2px solid var(--soft);cursor:pointer;padding:0;font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center;background:var(--bg)}
+.tcol.sel{outline:3px solid var(--accent);outline-offset:2px}
+.tcol:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.twd{width:44px;height:34px;border-radius:17px;border:1px solid var(--soft);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.twd i{display:block;border-radius:50%;background:var(--ink)}
+.twd.sel{outline:3px solid var(--accent);outline-offset:2px}
+.gres .ohint{margin:10px 0}
+.gbig{font-size:3rem;text-align:center;color:var(--accent);font-style:italic;line-height:1}
 #bgfx{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 #mvol{position:fixed;top:max(27px,calc(env(safe-area-inset-top) + 13px));right:176px;z-index:20;width:84px;accent-color:var(--accent)}
 #mvol[hidden]{display:none}
@@ -107,13 +130,13 @@ body{background:transparent}
 .lock input{font:inherit;font-size:1.6rem;letter-spacing:.4em;text-align:center;width:min(240px,80vw);padding:12px;background:var(--card);color:var(--ink);border:1px solid var(--soft);border-radius:14px}
 .lock input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .lock button{font:inherit;font-size:1.1rem;color:var(--btn-ink);background:var(--accent);border:0;border-radius:999px;padding:12px 34px;cursor:pointer}
-.lock.gec>*{opacity:0;transition:opacity .5s}
-.kapi{position:fixed;inset:0;z-index:101;pointer-events:none;display:flex;perspective:1400px;overflow:hidden;opacity:0;transition:opacity .5s}
+.lock.gec>*{opacity:0;transition:opacity .25s}
+.kapi{position:fixed;inset:0;z-index:101;pointer-events:none;display:flex;perspective:1400px;overflow:hidden;opacity:0;transition:opacity .25s}
 .kapi.on{opacity:1}
 .kapi .isik{position:absolute;inset:0;z-index:0;background:radial-gradient(circle at 50% 50%,var(--accent) 0,rgba(255,255,255,.0) 55%);opacity:0;transform:scale(.3)}
-.kapi.ac .isik{animation:kisik 2.6s ease-out forwards}
+.kapi.ac .isik{animation:kisik 1.3s ease-out forwards}
 @keyframes kisik{0%{opacity:0;transform:scale(.3)}30%{opacity:.85}100%{opacity:0;transform:scale(2.4)}}
-.kapi .kn{position:relative;z-index:1;flex:1;background:var(--card);overflow:hidden;transition:transform 2.3s cubic-bezier(.65,0,.25,1)}
+.kapi .kn{position:relative;z-index:1;flex:1;background:var(--card);overflow:hidden;transition:transform 1.1s cubic-bezier(.65,0,.25,1)}
 .kapi .kn.sol{transform-origin:left center;border-right:2px solid var(--accent)}
 .kapi .kn.sag{transform-origin:right center;border-left:2px solid var(--accent)}
 .kapi .kn::before{content:"";position:absolute;inset:7% 14%;border:1px solid var(--soft);opacity:.35;border-radius:12px}
@@ -126,9 +149,13 @@ body{background:transparent}
 .kapi.ac .kn.sol{transform:rotateY(-105deg)}
 .kapi.ac .kn.sag{transform:rotateY(105deg)}
 .kapi .yazi{position:absolute;z-index:3;left:0;right:0;top:calc(50% + min(22vw,100px));text-align:center;font-style:italic;font-size:clamp(1.3rem,6vw,1.9rem);color:var(--ink);text-shadow:0 0 14px var(--accent),0 0 3px rgba(0,0,0,.6);opacity:0;padding:0 20px}
-.kapi.yz .yazi{opacity:1;transition:opacity 1.2s}
-.kapi.ac .yazi{opacity:0;transition:opacity .6s}
+.kapi.yz .yazi{opacity:1;transition:opacity .35s}
+.kapi.ac .yazi{opacity:0;transition:opacity .25s}
 .kapi.ac .kn svg{opacity:0;transition:opacity .35s}
+.lock .kimsec{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.lock .kimb{font-size:1rem;padding:10px 18px;background:var(--card);color:var(--ink);border:1px solid var(--soft)}
+.lock .kimb.sel{background:var(--accent);color:var(--btn-ink);border-color:var(--accent)}
+.lock .kimb:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .lock .err{color:var(--accent);min-height:1.4em;font-size:.95rem}
 .game{width:100%;max-width:420px;display:flex;flex-direction:column;gap:10px}
 .ghud{display:flex;justify-content:space-between;color:var(--soft);font-size:1rem;font-variant-numeric:tabular-nums}
@@ -282,7 +309,8 @@ body{background:transparent}
 <body>
 <div class="lock" id="lock" role="dialog" aria-label="Şifre">
 <h1>Ramazan &amp; Ayten</h1>
-<p>Şifreyi gir</p>
+<p>Önce kim olduğunu seç, sonra şifreyi gir</p>
+<div class="kimsec" id="kimsec" role="group" aria-label="Sen kimsin"><button type="button" class="kimb" data-k="Ramazan">Ben Ramazan</button><button type="button" class="kimb" data-k="Ayten">Ben Ayten</button></div>
 <input id="pw" type="password" inputmode="numeric" autocomplete="off" maxlength="12" aria-label="Şifre">
 <div class="err" id="lockerr" aria-live="polite"></div>
 <button type="button" id="lockbtn">Aç</button>
@@ -303,7 +331,14 @@ body{background:transparent}
 <div class="u"><b id="m">00</b><span>dakika</span></div>
 <div class="u"><b id="s">00</b><span>saniye</span></div>
 </div>
-<div class="note"><small>Bugünün notu</small><p id="note"></p></div>
+<div class="note"><small>Bugünün notu</small><p id="note"></p><small id="nwho"></small>
+<div class="row2" id="nview"><button type="button" class="mini" id="nedit">✎ Notu düzenle</button></div>
+<div id="nform" hidden>
+<textarea id="nta" maxlength="160" rows="3" aria-label="Bugünün notu" placeholder="Bugün onun için bir not yaz…"></textarea>
+<small id="ncount"></small>
+<div class="row2"><button type="button" class="mini pri" id="nsave">Kaydet</button><button type="button" class="mini" id="ncancel">İptal</button><button type="button" class="mini" id="nreset">Varsayılana dön</button></div>
+</div>
+</div>
 <div class="surp">
 <button id="btn" type="button" aria-expanded="false" aria-controls="msg">Bana dokun</button>
 <p class="msg" id="msg" aria-live="polite">Seninle geçen her gün hayatımın en güzel günü. İyi ki varsın 💜</p>
@@ -372,6 +407,8 @@ body{background:transparent}
 <button type="button" role="tab" class="mini" data-p="fal">Fal küresi</button>
 <button type="button" role="tab" class="mini" data-p="bot">💬 Aşk botu</button>
 <button type="button" role="tab" class="mini" data-p="xox">❌⭕ XOX</button>
+<button type="button" role="tab" class="mini" data-p="guven">🤝 Güven testi</button>
+<button type="button" role="tab" class="mini" data-p="tuval">🖌️ Ortak tuval</button>
 </div>
 
 <div class="pane" id="p-kalp" hidden>
@@ -439,6 +476,30 @@ body{background:transparent}
 <p class="ohint" id="xmsg" aria-live="polite"></p>
 <div class="row2"><button type="button" class="mini pri" id="xnew">Yeni oyun</button></div>
 </div>
+<div class="pane" id="p-guven" hidden>
+<div id="gv-intro">
+<p class="ohint" style="text-align:center">12 kısa ifade. Her birinin ne kadar sana uyduğunu seç. Doğru ya da yanlış cevap yok, en dürüst olanı seç. Sonunda hangi konuda kendini ne kadar güvende hissettiğini ve konuşmaya değer bir soru görürsün.</p>
+<p class="ohint" style="text-align:center">Bu test eğlence ve düşünme içindir, bilimsel ya da uzman değerlendirmesi değildir. Cevapların hiçbir yere kaydedilmez, sadece bu ekranda kalır.</p>
+<div class="row2"><button type="button" class="mini pri" id="gv-start">Teste başla</button></div>
+</div>
+<div id="gv-q" hidden>
+<p class="ohint" id="gv-prog" style="text-align:center" aria-live="polite"></p>
+<div class="gbar"><i id="gv-bar"></i></div>
+<p class="gq" id="gv-text"></p>
+<div class="gopts" id="gv-opts" role="group" aria-label="Cevap seç"></div>
+<div class="row2" style="margin-top:12px"><button type="button" class="mini" id="gv-back">← Geri</button></div>
+</div>
+<div id="gv-res" hidden></div>
+</div>
+<div class="pane" id="p-tuval" hidden>
+<p class="ohint" style="text-align:center">İkiniz aynı tuvale çizin. Çizdiğin çizgi karşı tarafta birkaç saniyede belirir.</p>
+<div class="row2" role="group" aria-label="Sen kimsin"><button type="button" class="mini" data-tk="Ramazan">Ben Ramazan</button><button type="button" class="mini" data-tk="Ayten">Ben Ayten</button></div>
+<canvas id="tcv" aria-label="Ortak çizim tuvali"></canvas>
+<div class="tbar" id="tcols" role="group" aria-label="Renk"></div>
+<div class="tbar" id="twds" role="group" aria-label="Kalınlık"></div>
+<p class="ohint" id="tmsg" aria-live="polite" style="text-align:center;min-height:1.3em"></p>
+<div class="row2"><button type="button" class="mini" id="tundo">↶ Geri al</button><button type="button" class="mini" id="tclr">Temizle</button><button type="button" class="mini" id="tsave">Kaydet</button></div>
+</div>
 
 </div>
 </section>
@@ -484,10 +545,10 @@ body{background:transparent}
 <section class="rehber">
 <button type="button" id="rtoggle" class="oyunbtn" aria-expanded="false" aria-controls="rbody">📖 Nasıl kullanılır? ▾</button>
 <div id="rbody" hidden style="width:100%;display:flex;flex-direction:column;gap:10px">
-<details><summary>🌟 Genel bilgi</summary><ul><li>Şifreyi girince sayfa açılır.</li><li>Sağ üstteki <b>🎵</b> düğmesi sakin bir fon müziğini çalar, <b>⏸</b> ile durdurursun. Yanında ses ayarı çıkar. Müzik telif sorunu olmasın diye tarayıcıda üretilir. iPhone’da yan taraftaki sessiz düğmesi açıksa ses gelmeyebilir. Sayfadan çıkınca müzik durur.</li>
+<details><summary>🌟 Genel bilgi</summary><ul><li>Açılışta önce <b>Ben Ramazan</b> veya <b>Ben Ayten</b>’i seç, sonra şifreyi gir. Seçimin telefonunda hatırlanır, her açışta hazır gelir. Başkası senin telefonunu kullanacaksa o seferde ismini değiştir.</li><li>Giriş yapınca karşı tarafa <b>“siteye girdi”</b> bildirimi gider (aynı kişi için en fazla 10 dakikada bir). Sohbet, XOX, tuval ve günün notu seçtiğin ismi kullanır, tekrar seçmen gerekmez.</li><li>Sağ üstteki <b>🎵</b> düğmesi sakin bir fon müziğini çalar, <b>⏸</b> ile durdurursun. Yanında ses ayarı çıkar. Müzik telif sorunu olmasın diye tarayıcıda üretilir. iPhone’da yan taraftaki sessiz düğmesi açıksa ses gelmeyebilir. Sayfadan çıkınca müzik durur.</li>
 <li>Sağ üstteki <b>🌧️</b> düğmesi arkada yavaşça düşen kalp ve yıldızları, ayrıca ekrana dokunduğunda çıkan kalp izini açar veya kapatır. Pili yoruyorsa kapat.</li>
 <li>Sağ üstteki <b>🎨</b> düğmesi sayfanın rengini değiştirir. Renk sadece kendi telefonunda kalır.</li><li>Yazdığın her şey (notlar, sesler, fotoğraflar, itiraflar, dilekler, sohbet) <b>ikinizde de ortak</b> görünür. İnternet gerekir.</li><li>Çoğu <b>Sil</b> düğmesi iki aşamalıdır: ilk dokunuşta “Emin misin?” der, ikinci dokunuşta siler. Yanlışlıkla silmeni önler.</li></ul></details>
-<details><summary>⏳ Sayaç, günün notu ve “Bana dokun”</summary><ul><li>Üstteki sayaç birlikte geçen günü, ayı, saati ve saniyeyi canlı gösterir.</li><li>“Bugünün notu” günde bir değişir.</li><li><b>Bana dokun</b> düğmesi gizli bir mesajı açar, tekrar dokununca kapanır. Basınca ekran bir kalp atışı gibi atar, titreşimi destekleyen telefonlarda (çoğu Android) telefon da titrer. iPhone titreşime izin vermez, sadece görüntü atar.</li></ul></details>
+<details><summary>⏳ Sayaç, günün notu ve “Bana dokun”</summary><ul><li>Üstteki sayaç birlikte geçen günü, ayı, saati ve saniyeyi canlı gösterir.</li><li>“Bugünün notu” her gün kendiliğinden yeni bir söz gösterir. İstersen <b>✎ Notu düzenle</b> ile kendin yaz, <b>Kaydet</b>’e bas. Yazdığın not iki telefonda da görünür, altında kimin yazdığı çıkar (sohbette kim olduğunu seçtiysen) ve karşı tarafa bildirim gider. Not sadece o gün için geçerlidir, ertesi gün yine yeni bir söz çıkar. <b>Varsayılana dön</b> kendi notunu silip günün sözüne döner.</li><li><b>Bana dokun</b> düğmesi gizli bir mesajı açar, tekrar dokununca kapanır. Basınca ekran bir kalp atışı gibi atar, titreşimi destekleyen telefonlarda (çoğu Android) telefon da titrer. iPhone titreşime izin vermez, sadece görüntü atar.</li></ul></details>
 <details><summary>💌 Sevgi sözleri</summary><ul><li>“Sevgi sözleri” düğmesine dokununca liste açılır.</li><li>Alttaki kutuya yeni söz yazıp <b>Söz ekle</b> de, listeye eklenir.</li><li>Beğenmediğin sözü silebilirsin. <b>İlk haline getir</b> ilk listeyi geri getirir.</li></ul></details>
 <details><summary>✉️ Zarf</summary><ul><li><b>Zarf ekle</b> de, içine istediğin mesajı yaz, <b>Zarfı ekle</b> ile kaydet.</li><li>Zarfa dokununca açılır, içindeki yazı görünür. Sonra istersen silebilirsin.</li></ul></details>
 <details><summary>🎙️ Ses kayıtları</summary><ul><li><b>Kaydı başlat</b>’a bas, konuş, bitince <b>Durdur ve kaydet</b>’e bas.</li><li>İlk seferde telefon mikrofon izni ister, <b>İzin ver</b> de. Vermediysen iPhone’da: adres çubuğundaki <b>aA → Web Sitesi Ayarları → Mikrofon → İzin ver</b>, sonra sayfayı yenile.</li><li>“Kaydedildi ✓” yazısı gelince kayıt buluta yüklenmiştir ve karşı taraf da dinleyebilir.</li><li>Kaydın altındaki oynatıcıdan dinlenir. <b>Sil</b> ile iki tarafta da silinir.</li><li>Sayfayı Safari veya Chrome’da <b>https://</b> adresinden aç, dosyayı doğrudan açarsan mikrofon çalışmaz.</li></ul></details>
@@ -497,6 +558,8 @@ body{background:transparent}
 <details><summary>📜 Aşk taahhütnamesi</summary><ul><li>Maddeleri okuyabilir, kutuya yeni madde yazıp <b>Madde ekle</b> ile ekleyebilirsin.</li><li>Aşağıda her birinizin <b>✍️ İmzala</b> düğmesi var, kendi adının altındakine bas.</li><li>İmzayı geri almak için <b>İmzaları geri al</b>’a bas.</li></ul></details>
 <details><summary>🤫 İtiraf köşesi</summary><ul><li>Önce kim olduğunu seç: <b>Ramazan</b> veya <b>Ayten</b>.</li><li>Ne yazacağını bilmiyorsan <b>Bana bir başlangıç ver</b>’e bas, bir cümle başlangıcı gelir.</li><li><b>İtiraf et</b> ile kaydedersin. Yazdıkların altta listelenir ve karşı taraf da okuyabilir.</li></ul></details>
 <details><summary>💬 Canlı sohbet</summary><ul><li>İlk açışta <b>Ben Ramazan</b> veya <b>Ben Ayten</b>’i seç. Telefon bunu hatırlar.</li><li>Mesajı yazıp <b>Gönder</b>’e bas ya da klavyede Enter’a bas. Alt satıra geçmek için <b>Shift + Enter</b> kullan (bilgisayarda).</li><li>Sayfa açıkken yeni mesajlar birkaç saniyede kendiliğinden gelir, yenilemene gerek yok.</li><li>Kendi mesajının altındaki <b>Sil</b>’e dokun, “Emin misin? Sil” çıkınca tekrar dokun. Mesaj iki tarafta da silinir. Karşı tarafın mesajını silemezsin.</li><li>Üstteki yazıda karşı tarafın <b>🟢 şu an sohbette</b> mi yoksa en son ne zaman göründüğü yazar. Bunun çalışması için ikinizin de kim olduğunu seçmiş olması gerekir.</li><li>Telefonuna bildirim gelmesi için aşağıdaki <b>🔔 Bildirimler</b> bölümüne bak.</li></ul></details>
+<details><summary>🤝 Güven testi</summary><ul><li><b>Oyunlar → 🤝 Güven testi</b> sekmesinden başla.</li><li>12 ifade çıkar, her birine ne kadar katıldığını seç. Cevaplar kendini en dürüst hissettiğin şekilde olsun.</li><li>Sonunda genel bir yüzde, 6 konuda ayrı ayrı sonuç ve birlikte konuşmak için bir soru görürsün.</li><li>Cevapların kaydedilmez, kimse görmez. İstersen sonucu birbirinize anlatabilirsiniz.</li><li>Bu bir eğlence ve düşünme aracıdır, ilişkinizi ölçen bilimsel bir test değildir.</li></ul></details>
+<details><summary>🖌️ Ortak tuval</summary><ul><li><b>Oyunlar → 🖌️ Ortak tuval</b> sekmesini aç ve önce kim olduğunu seç.</li><li>Parmağınla çiz. Çizgin karşı tarafın tuvalinde birkaç saniye içinde belirir, onunki de seninkinde. İkiniz aynı anda çizebilirsiniz.</li><li>Renkleri ve üç kalınlığı üstten seçersin. <b>🧽</b> silgidir, sadece çizgileri siler.</li><li><b>↶ Geri al</b> sadece kendi son çizgini geri alır.</li><li><b>Temizle</b> tuvali iki taraftan siler, bu yüzden iki kere sorar.</li><li><b>Kaydet</b> resmi telefona kaydeder veya paylaşma menüsünü açar.</li><li>Karşı taraf tuvali açmamışsa çizdiğin çizgileri sayfayı açınca görür. En fazla iki dakikada bir bildirim gider.</li></ul></details>
 <details><summary>🔔 Bildirimler</summary><ul><li>Karşı taraf sohbette mesaj yazınca veya XOX’ta hamle yapınca telefonuna bildirim düşer. Sayfa kapalıyken de gelir.</li><li>Bunun için <b>ntfy</b> uygulaması gerekir (App Store veya Play Store, ücretsiz, hesap gerekmez).</li><li>Uygulamayı aç, <b>+</b> düğmesine bas, sana verilen <b>kanal adını</b> yaz ve <b>Subscribe</b>’a bas. Sunucu olarak varsayılanı (ntfy.sh) bırak.</li><li>Telefonda ntfy için bildirim iznini aç.</li><li>Sohbet bölümündeki <b>🔔 Bildirimi dene</b> düğmesi kendi telefonuna deneme bildirimi yollar. Gelmezse kanal adını ve izni kontrol et.</li><li>Bildirimde mesajın metni yazmaz, sadece yazdığı görünür. Mesajı okumak için bildirime dokunup siteyi aç.</li></ul></details>
 <details><summary>🛠️ Bir şey çalışmazsa</summary><ul><li><b>Eklediğim şey karşı tarafta görünmüyor:</b> İnternet açık mı bak, sayfayı tamamen kapatıp yeniden aç.</li><li><b>“Bağlantı yok” yazıyor:</b> İnterneti kontrol et, kendiliğinden tekrar dener.</li><li><b>Mesaj “gönderilemedi” diyor:</b> İnterneti kontrol edip mesajı tekrar yaz.</li><li><b>Eski haline dönmüş gibi:</b> Sayfa yeni dosyayla güncellendiyse tarayıcı eskisini tutuyor olabilir. Sayfayı kapatıp yeniden aç ya da yenile.</li><li><b>“Yer doldu” yazıyor (fotoğraf):</b> Bir fotoğrafı silip tekrar dene.</li><li><b>Hâlâ olmuyor:</b> Ramazan’a yaz 🙂</li></ul></details>
 </div>
@@ -505,6 +568,8 @@ body{background:transparent}
 <script>
 /* ---- Bulut senkronu (Supabase) ---- */
 var SB={url:"https://guirjtvreaxcawnssaun.supabase.co",key:"sb_publishable_ufvIYTE5WKOjFAOWOo7k1A_4-7N7Mtc"};
+/* ---- Kimlik (kim olduğun) ---- */
+(function(){try{var k=localStorage.getItem("sohbetkim")||localStorage.getItem("xoxkim")||"";if(k){localStorage.setItem("sohbetkim",k);localStorage.setItem("xoxkim",k);}}catch(e){}})();
 /* ---- Bildirim (ntfy.sh) ---- */
 var NT={Ramazan:"ra27-r-1818ed98273fdb1db9",Ayten:"ra27-a-5e4f945b756a78a7d5"},NTLAST={};
 function bildir(kime,baslik,mesaj,anahtar,bekle){
@@ -521,7 +586,7 @@ function bildir(kime,baslik,mesaj,anahtar,bekle){
   var LS,setO=Storage.prototype.setItem,remO=Storage.prototype.removeItem;
   try{LS=window.localStorage;}catch(e){return;}
   var H={"apikey":SB.key,"Content-Type":"application/json"};
-  var SKIP={tema:1,__ts:1,__rl:1,sohbetkim:1,xoxkim:1,yagmur:1},timers={};
+  var SKIP={tema:1,__ts:1,__rl:1,sohbetkim:1,xoxkim:1,yagmur:1,girisbil:1},timers={};
   function getTs(){try{return JSON.parse(LS.getItem("__ts"))||{};}catch(e){return {};}}
   function setTs(k,t){var m=getTs();m[k]=t;try{setO.call(LS,"__ts",JSON.stringify(m));}catch(e){}}
   function send(k,v,t){
@@ -541,9 +606,9 @@ function bildir(kime,baslik,mesaj,anahtar,bekle){
 
   /* açılışta: buluttaki daha yeni veriyi al, telefondaki daha yeniyi/eksiği buluta gönder */
   try{
-    fetch(SB.url+"/rest/v1/kv?select=key,updated_at&key=not.like.ses:*&key=not.like.msg:*&key=not.like.on:*&key=not.like.g:*",{headers:H}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(rows){
+    fetch(SB.url+"/rest/v1/kv?select=key,updated_at&key=not.like.ses:*&key=not.like.msg:*&key=not.like.on:*&key=not.like.g:*&key=not.like.dr:*",{headers:H}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(rows){
       var local=getTs(),remote={},need=[];
-      rows.forEach(function(r){if(r.key.indexOf("ses:")!==0&&r.key.indexOf("msg:")!==0&&r.key.indexOf("on:")!==0&&r.key.indexOf("g:")!==0&&!SKIP[r.key])remote[r.key]=Date.parse(r.updated_at);});
+      rows.forEach(function(r){if(r.key.indexOf("ses:")!==0&&r.key.indexOf("msg:")!==0&&r.key.indexOf("on:")!==0&&r.key.indexOf("g:")!==0&&r.key.indexOf("dr:")!==0&&!SKIP[r.key])remote[r.key]=Date.parse(r.updated_at);});
       Object.keys(remote).forEach(function(k){if(!(local[k]>=remote[k]))need.push(k);});
       for(var i=0;i<LS.length;i++){
         var k=LS.key(i);if(SKIP[k]||need.indexOf(k)>=0)continue;
@@ -585,11 +650,41 @@ function tick(){
 }
 
 var notes=["Gülüşün günümün en güzel başlangıcı.", "Seninle her şey daha kolay, her an daha güzel.", "İyi ki karşıma çıktın.", "Yanındayken zaman çok hızlı geçiyor.", "Sesini duymak günümü düzeltmeye yetiyor.", "Seni düşünmek bile içimi ısıtıyor.", "Seninle sıradan bir gün bile özel.", "Yanımda olduğun için çok şanslıyım.", "Sana sarılmak dünyanın en güzel yeri.", "Seninle büyümek, güldüğüm her şeyi katlıyor.", "Bugün de seni seçerdim, yarın da.", "Gözlerinin içine bakınca her derdim siliniyor.", "Beni ben yapan şeylerden biri de sensin.", "Seninle yaşadığım her an bir anı olmaya değer.", "Sana her gün biraz daha alışıyor, biraz daha seviyorum.", "Telefonuma gelen mesajın her gün en sevdiğim bildirim.", "Birlikte susmak bile huzur veriyor.", "Seninle geleceği hayal etmek çok güzel.", "Sen varsan her yer evim.", "Küçük şeyleri bile büyük yapıyorsun.", "Bugün sana sarılmayı çok istiyorum.", "Seni tanıdığım için hayata teşekkür ederim.", "Gülünce dünyam aydınlanıyor.", "Seninle yürüdüğümüz her yol güzel.", "Aklıma gelen en güzel şey sensin.", "Sevgin bana güç veriyor.", "Birlikte olduğumuz her gün hediye gibi.", "Sen benim en sevdiğim sohbetimsin.", "Seni özlemek bile güzel, çünkü sana kavuşacağım.", "Bugün de iyi ki varsın.", "Sabah gözümü açınca ilk seni düşünüyorum.", "Seninle paylaşılan sessizlik bile bana yetiyor.", "Bir gün daha sana yaklaştım, bir gün daha mutluyum.", "Gülerken gözlerin ışıldıyor, ben de bayılıyorum buna.", "Yorgun günümün en iyi ilacı sensin.", "Elini tutmak, güvende hissetmenin en güzel hali.", "Seninle her yer macera, her an güzel bir sürpriz.", "Sana bakınca neden şanslı olduğumu hatırlıyorum.", "Seni seviyorum, bugün de dünden biraz daha fazla.", "Hayatımın en güzel tesadüfü sensin.", "Seninle olunca zaman durup bana izin veriyor.", "Nerede olursan ol, kalbim seninle.", "Bugün sana güzel bir şey söylemek istedim: iyi ki sensin.", "Seninle paylaştığım her şey iki kat güzel.", "Sesin kulağıma en güzel müzik.", "Küçük bir mesajın bile günümü değiştiriyor.", "Sana kızsam bile yine seviyorum, bunu bil.", "Beraber kurduğumuz küçük dünya benim en sevdiğim yer.", "Seninle yaşlanmak güzel bir fikir.", "Bugün de seni düşünerek gülümsedim.", "Sen güldükçe dünya daha yaşanır oluyor.", "Sevgin bana her gün yeniden cesaret veriyor.", "Seninle tanıştığım gün şansımı kullandım.", "Her şey karışsa da sen varsın, yeter.", "Seni düşünmek günün en tatlı molası.", "Birlikte yaptığımız en sıradan şey bile anı oluyor.", "Kalbimin en güzel yerinde yerin hep var.", "Seninle her gün yeni bir sayfa, hepsi güzel.", "Bana kattığın her şey için teşekkür ederim.", "Bugün yine sana aşık olmak için güzel bir gün."];
-function showNote(){
-  var d=Math.floor(Math.max(0,new Date()-start)/864e5);
-  document.getElementById("note").textContent=notes[d%notes.length];
+function today(){var n=new Date();return n.getFullYear()+"-"+p(n.getMonth()+1)+"-"+p(n.getDate());}
+function customNote(){
+  try{var o=JSON.parse(localStorage.getItem("bugunnot")||"null");if(o&&o.d===today()&&o.t)return o;}catch(e){}
+  return null;
 }
-showNote();
+function showNote(){
+  var d=Math.floor(Math.max(0,new Date()-start)/864e5),o=customNote();
+  document.getElementById("note").textContent=o?o.t:notes[d%notes.length];
+  document.getElementById("nwho").textContent=o&&o.w?"✍️ "+o.w+" yazdı":"";
+}
+showNote();setInterval(showNote,60000);
+(function(){
+  var view=document.getElementById("nview"),form=document.getElementById("nform"),ta=document.getElementById("nta"),cnt=document.getElementById("ncount");
+  function who(){try{return localStorage.getItem("sohbetkim")||localStorage.getItem("xoxkim")||"";}catch(e){return "";}}
+  function count(){cnt.textContent=ta.value.length+" / 160";}
+  ta.addEventListener("input",count);
+  document.getElementById("nedit").addEventListener("click",function(){
+    var o=customNote();ta.value=o?o.t:document.getElementById("note").textContent;count();
+    view.hidden=true;form.hidden=false;ta.focus();
+  });
+  function close(){form.hidden=true;view.hidden=false;}
+  document.getElementById("ncancel").addEventListener("click",close);
+  document.getElementById("nsave").addEventListener("click",function(){
+    var t=ta.value.trim();
+    if(!t){ta.focus();return;}
+    var w=who();
+    try{localStorage.setItem("bugunnot",JSON.stringify({d:today(),t:t,w:w}));}catch(e){}
+    showNote();close();
+    if(w&&window.bildir)bildir(w==="Ramazan"?"Ayten":"Ramazan","📝 Bugünün notu",w+" bugünün notunu yazdı","not",60000);
+  });
+  document.getElementById("nreset").addEventListener("click",function(){
+    try{localStorage.removeItem("bugunnot");}catch(e){}
+    showNote();close();
+  });
+})();
 var hs=["💜","💕","❤️","💖","🧡"];
 document.getElementById("btn").addEventListener("click",function(){
   var mm=document.getElementById("msg");
@@ -804,7 +899,24 @@ for(var k in S){
   function cyrb53(str,seed){seed=seed||0;var h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(var i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return 4294967296*(2097151&h2)+(h1>>>0);}
   var HASH="3877003677756317";
   var lock=document.getElementById("lock"),pw=document.getElementById("pw"),err=document.getElementById("lockerr");
-  var opening=false;
+  var opening=false,kim="";
+  try{kim=localStorage.getItem("sohbetkim")||localStorage.getItem("xoxkim")||"";}catch(e){}
+  var kbs=[].slice.call(document.querySelectorAll("#kimsec .kimb"));
+  function markKim(){kbs.forEach(function(b){var on=b.dataset.k===kim;b.classList.toggle("sel",on);b.setAttribute("aria-pressed",on?"true":"false");});}
+  kbs.forEach(function(b){b.addEventListener("click",function(){kim=b.dataset.k;markKim();err.textContent="";pw.focus();});});
+  markKim();
+  function applyKim(){
+    try{localStorage.setItem("sohbetkim",kim);localStorage.setItem("xoxkim",kim);}catch(e){}
+    ['.lchat [data-c="'+kim+'"]','#p-xox [data-x="'+kim+'"]','#p-tuval [data-tk="'+kim+'"]'].forEach(function(q){var b=document.querySelector(q);if(b)b.click();});
+    // karşı tarafa "girdi" bildirimi (30 dakikada bir)
+    try{
+      var n=Date.now(),l=+localStorage.getItem("girisbil")||0;
+      if(n-l>10*60*1000){
+        localStorage.setItem("girisbil",String(n));
+        if(window.bildir)bildir(kim==="Ramazan"?"Ayten":"Ramazan","💜 "+kim,kim+" siteye girdi","giris",0);
+      }
+    }catch(e){}
+  }
   function openDoors(){
     if(opening)return;opening=true;
     var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -816,15 +928,16 @@ for(var k in S){
     document.body.appendChild(k);
     void k.offsetWidth;
     lock.classList.add("gec");k.classList.add("on");
-    setTimeout(function(){lock.hidden=true;k.classList.add("glow");},600);
-    setTimeout(function(){k.classList.add("yz");},900);
-    setTimeout(function(){k.classList.add("ac");if(window.konfeti)window.konfeti(70);},3500);
-    setTimeout(function(){k.remove();},6200);
+    setTimeout(function(){lock.hidden=true;k.classList.add("glow");},280);
+    setTimeout(function(){k.classList.add("yz");},150);
+    setTimeout(function(){k.classList.add("ac");if(window.konfeti)window.konfeti(70);},800);
+    setTimeout(function(){k.remove();},2000);
   }
   window.askinKapilari=openDoors;
   function tryOpen(){
+    if(!kim){err.textContent="Önce kim olduğunu seç 💜";return;}
     if(String(cyrb53("RA27|"+pw.value.trim()))===HASH){
-      openDoors();
+      applyKim();openDoors();
     }else{err.textContent="Şifre yanlış, tekrar dene.";pw.value="";pw.focus();}
   }
   document.getElementById("lockbtn").addEventListener("click",tryOpen);
@@ -1642,6 +1755,214 @@ for(var k in S){
     [ov,big,b].forEach(function(el){if(!el)return;el.classList.remove(el===ov?"go":"atar");void el.offsetWidth;el.classList.add(el===ov?"go":"atar");});
     clearTimeout(tm);tm=setTimeout(function(){[ov,big,b].forEach(function(el){if(el)el.classList.remove(el===ov?"go":"atar");});},2300);
   });
+})();
+
+/* ---- Güven testi ---- */
+(function(){
+  var Q=[
+    ["Açıklık","Aklımdan geçen zor şeyleri partnerime yargılanmayacağımı bilerek anlatabilirim.",0],
+    ["Açıklık","Bir hata yaptığımda bunu saklamak yerine partnerime söylerim.",0],
+    ["Sadakat","Partnerimin bana sadık olduğundan eminim.",0],
+    ["Sadakat","Partnerimin başkalarıyla yazışmaları ve arkadaşlıkları beni huzursuz etmez.",0],
+    ["İç huzur","Partnerimin telefonuna ya da mesajlarına bakma isteği duyarım.",1],
+    ["İç huzur","Partnerim beni bırakacak diye korktuğum zamanlar olur.",1],
+    ["Destek","Zor bir günümde partnerimin yanımda olacağına güvenirim.",0],
+    ["Destek","Partnerim hayallerimi ve kararlarımı ciddiye alır.",0],
+    ["Tutarlılık","Partnerim söz verdiğinde sözünü tutar.",0],
+    ["Tutarlılık","Partnerimin söyledikleri ile yaptıkları birbiriyle uyumludur.",0],
+    ["Saygı ve gizlilik","Ona anlattığım özel bir şeyin başkalarıyla paylaşılmayacağından eminim.",0],
+    ["Saygı ve gizlilik","Tartışsak bile birbirimize saygısızlık etmeyeceğimize güveniyorum.",0]
+  ];
+  var O=["Hiç katılmıyorum","Pek katılmıyorum","Kararsızım","Biraz katılıyorum","Tamamen katılıyorum"];
+  var QS={
+    "Açıklık":"Kendini en çok ne zaman partnerine bir şey anlatamayacakmış gibi hissediyorsun? Bu konuda ondan ne beklerdin?",
+    "Sadakat":"Seni ilişkimizde en çok neyin içini rahatlatır? Hangi sözü ya da davranışı duymak seni güvende hissettirir?",
+    "İç huzur":"Kaygılandığında bunu ona nasıl söylemek istersin? O sana nasıl yaklaşırsa kendini suçlanmış hissetmezsin?",
+    "Destek":"Zor bir günde ondan tam olarak ne istersin? Yanında olmak sana nasıl görünür?",
+    "Tutarlılık":"Söz verip tutmanın bizim için ne anlama geldiğini konuşalım. Hangi küçük sözler senin için büyük?",
+    "Saygı ve gizlilik":"Birbirimize anlattığımız şeyler hakkında hangi sınırlar bizim için önemli? Neleri kimseyle paylaşmayalım?"
+  };
+  var intro=document.getElementById("gv-intro"),qb=document.getElementById("gv-q"),res=document.getElementById("gv-res"),
+      prog=document.getElementById("gv-prog"),bar=document.getElementById("gv-bar"),tx=document.getElementById("gv-text"),
+      opts=document.getElementById("gv-opts"),back=document.getElementById("gv-back");
+  var i=0,A=[];
+  function show(w){intro.hidden=w!=="i";qb.hidden=w!=="q";res.hidden=w!=="r";}
+  function ask(){
+    prog.textContent=(i+1)+" / "+Q.length;bar.style.width=(i/Q.length*100)+"%";
+    tx.textContent=Q[i][1];opts.innerHTML="";
+    O.forEach(function(t,k){
+      var b=document.createElement("button");b.type="button";b.className="gopt"+(A[i]===k+1?" sel":"");b.textContent=t;
+      b.addEventListener("click",function(){A[i]=k+1;if(i<Q.length-1){i++;ask();}else finish();});
+      opts.appendChild(b);
+    });
+    back.hidden=i===0;
+  }
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;}
+  function finish(){
+    var cat={},names=[],tot=0;
+    Q.forEach(function(q,k){
+      var v=q[2]?6-A[k]:A[k];tot+=v;
+      if(!(q[0] in cat)){cat[q[0]]=0;names.push(q[0]);}
+      cat[q[0]]+=v;
+    });
+    var pct=Math.round((tot-12)/48*100);
+    var band=pct>=85?["Çok güçlü bir güven hissi","Partnerinle aranda derin bir güven olduğunu söylüyorsun. Bunu ona da söyle: güçlü olan şeyleri dile getirmek onları besler."]
+      :pct>=70?["Sağlam bir güven","Güven duygun sağlam. Küçük pürüzler varsa onları sakin bir anda konuşmak, bu zemini daha da güçlendirir."]
+      :pct>=55?["Gelişen bir güven","Güvenin olduğu alanlar da, henüz tam oturmamış alanlar da var. Bu çok normal. Aşağıdaki en düşük konuyu birlikte konuşmak iyi bir başlangıç olur."]
+      :["Konuşmaya değer şeyler var","Bazı konularda kendini tam güvende hissetmiyorsun gibi görünüyor. Bu, ilişkinin kötü olduğu anlamına gelmez. Ama bunu içinde tutmak yerine sakin ve suçlamadan partnerinle paylaşmak iyi gelir."];
+    var low=names.slice().sort(function(a,b){return cat[a]-cat[b];})[0];
+    res.innerHTML="";var w=el("div","gres");
+    w.appendChild(el("div","gbig",pct+"%"));
+    w.appendChild(el("p","xstat",band[0]));
+    w.appendChild(el("p","ohint",band[1]));
+    names.forEach(function(n){
+      var p=Math.round((cat[n]-2)/8*100);
+      var r=el("div","gcat");r.appendChild(el("span","",n));r.appendChild(el("span","",p+"%"));
+      var b=el("div","gbar"),f=el("i");b.appendChild(f);w.appendChild(r);w.appendChild(b);
+      setTimeout(function(){f.style.width=p+"%";},60);
+    });
+    w.appendChild(el("p","xstat","💬 Birlikte konuşmak için"));
+    var lp=Math.round((cat[low]-2)/8*100);
+    w.appendChild(el("p","ohint",lp>=90?"Hepsi çok yüksek çıktı 💜 Yine de birbirinize şunu sormak güzel olur: "+QS[low]:"“"+low+"” en düşük çıktı. "+QS[low]));
+    w.appendChild(el("p","ohint","Bu bir tanı değil, sadece bir konuşma başlangıcı. Çok bunalmış ya da endişeli hissediyorsan güvendiğin biriyle ya da bir uzmanla konuşmak iyi olabilir."));
+    var row=el("div","row2");var again=el("button","mini pri","Testi yeniden çöz");again.type="button";
+    again.addEventListener("click",function(){i=0;A=[];show("q");ask();});
+    row.appendChild(again);w.appendChild(row);res.appendChild(w);show("r");
+  }
+  document.getElementById("gv-start").addEventListener("click",function(){i=0;A=[];show("q");ask();});
+  back.addEventListener("click",function(){if(i>0){i--;ask();}});
+})();
+
+/* ---- Ortak tuval (canlı, iki kişilik) ---- */
+(function(){
+  var pane=document.getElementById("p-tuval"),panel=document.getElementById("oyunpanel"),cv=document.getElementById("tcv"),g=cv.getContext("2d");
+  var cols=["#ff6b8b","#f0a36b","#ffd166","#7bd88f","#6fb8e8","#c9a3ff","#ffffff","E"],wds=[6,12,24];
+  var cur=0,wi=1,me="",S=[],seen={},last="",ver=null,busy=false,sc=1,drawing=null,ready=false;
+  try{me=localStorage.getItem("xoxkim")||localStorage.getItem("sohbetkim")||"";}catch(e){}
+  var H={apikey:SB.key,"Content-Type":"application/json"},msg=document.getElementById("tmsg");
+  var kb=[].slice.call(pane.querySelectorAll("[data-tk]"));
+  function mark(){kb.forEach(function(b){b.classList.toggle("pri",b.dataset.tk===me);});}
+  kb.forEach(function(b){b.addEventListener("click",function(){me=b.dataset.tk;try{localStorage.setItem("xoxkim",me);}catch(e){}mark();msg.textContent="";});});
+  mark();
+  var cw=document.getElementById("tcols"),ww=document.getElementById("twds");
+  cols.forEach(function(c,i){
+    var b=document.createElement("button");b.type="button";b.className="tcol"+(i===cur?" sel":"");
+    if(c==="E"){b.textContent="🧽";b.setAttribute("aria-label","Silgi");}else{b.style.background=c;b.setAttribute("aria-label","Renk "+(i+1));}
+    b.addEventListener("click",function(){cur=i;[].forEach.call(cw.children,function(x,k){x.classList.toggle("sel",k===i);});});
+    cw.appendChild(b);
+  });
+  wds.forEach(function(w,i){
+    var b=document.createElement("button");b.type="button";b.className="twd"+(i===wi?" sel":"");b.setAttribute("aria-label",["İnce","Orta","Kalın"][i]);
+    var d=document.createElement("i");d.style.width=d.style.height=(4+i*5)+"px";b.appendChild(d);
+    b.addEventListener("click",function(){wi=i;[].forEach.call(ww.children,function(x,k){x.classList.toggle("sel",k===i);});});
+    ww.appendChild(b);
+  });
+  function size(){
+    var w=cv.clientWidth;if(!w)return false;
+    var d=Math.min(2,window.devicePixelRatio||1);
+    cv.width=Math.round(w*d);cv.height=Math.round(w*1.25*d);sc=cv.width/1000;return true;
+  }
+  function setup(c,w){
+    g.globalCompositeOperation=c==="E"?"destination-out":"source-over";
+    g.strokeStyle=g.fillStyle=(c==="E"?"#000":c);g.lineWidth=w*sc;g.lineCap="round";g.lineJoin="round";
+  }
+  function paint(v){
+    var p=v.p;if(!p||p.length<2)return;setup(v.c,v.w);
+    if(p.length===2){g.beginPath();g.arc(p[0]*sc,p[1]*sc,v.w*sc/2,0,6.3);g.fill();return;}
+    g.beginPath();g.moveTo(p[0]*sc,p[1]*sc);
+    for(var i=2;i<p.length-2;i+=2){g.quadraticCurveTo(p[i]*sc,p[i+1]*sc,(p[i]+p[i+2])/2*sc,(p[i+1]+p[i+3])/2*sc);}
+    g.lineTo(p[p.length-2]*sc,p[p.length-1]*sc);g.stroke();
+  }
+  function replay(){g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,cv.width,cv.height);S.forEach(function(s){paint(s.v);});}
+  function pt(e){var r=cv.getBoundingClientRect();return [Math.round((e.clientX-r.left)/r.width*1000),Math.round((e.clientY-r.top)/r.height*1250)];}
+  cv.addEventListener("pointerdown",function(e){
+    if(!me){msg.textContent="Önce yukarıdan kim olduğunu seç.";return;}
+    if(!sc||!cv.width)size();
+    e.preventDefault();try{cv.setPointerCapture(e.pointerId);}catch(x){}
+    var q=pt(e);drawing={c:cols[cur],w:wds[wi],p:q.slice(),u:me};
+    setup(drawing.c,drawing.w);g.beginPath();g.arc(q[0]*sc,q[1]*sc,drawing.w*sc/2,0,6.3);g.fill();
+  });
+  cv.addEventListener("pointermove",function(e){
+    if(!drawing)return;var q=pt(e),p=drawing.p,n=p.length;
+    var dx=q[0]-p[n-2],dy=q[1]-p[n-1];if(dx*dx+dy*dy<16)return;
+    setup(drawing.c,drawing.w);g.beginPath();g.moveTo(p[n-2]*sc,p[n-1]*sc);g.lineTo(q[0]*sc,q[1]*sc);g.stroke();
+    p.push(q[0],q[1]);
+  });
+  function finish(){
+    if(!drawing)return;var v=drawing;drawing=null;
+    if(v.p.length>700){var t=[];for(var i=0;i<v.p.length;i+=4){t.push(v.p[i],v.p[i+1]);}t.push(v.p[v.p.length-2],v.p[v.p.length-1]);v.p=t;}
+    var key="dr:"+Date.now()+"-"+Math.random().toString(36).slice(2,6);
+    S.push({key:key,v:v});seen[key]=1;
+    fetch(SB.url+"/rest/v1/kv?on_conflict=key",{method:"POST",headers:{apikey:SB.key,"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"},
+      body:JSON.stringify({key:key,value:v,updated_at:new Date().toISOString()})})
+    .then(function(r){if(!r.ok)throw 0;msg.textContent="";bildir(me==="Ramazan"?"Ayten":"Ramazan","🖌️ Ortak tuval",me+" tuvale çizdi","tuval",120000);})
+    .catch(function(){msg.textContent="Çizgi gönderilemedi, karşı tarafta görünmeyebilir. İnterneti kontrol et.";});
+  }
+  cv.addEventListener("pointerup",finish);cv.addEventListener("pointercancel",finish);
+  function bump(){
+    var v=Date.now();ver=v;
+    fetch(SB.url+"/rest/v1/kv?on_conflict=key",{method:"POST",headers:{apikey:SB.key,"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"},
+      body:JSON.stringify({key:"g:tuval",value:{v:v},updated_at:new Date().toISOString()})}).catch(function(){});
+  }
+  document.getElementById("tundo").addEventListener("click",function(){
+    if(!me){msg.textContent="Önce yukarıdan kim olduğunu seç.";return;}
+    for(var i=S.length-1;i>=0;i--){
+      if(S[i].v.u===me){
+        var k=S[i].key;S.splice(i,1);replay();
+        fetch(SB.url+"/rest/v1/kv?key=eq."+encodeURIComponent(k),{method:"DELETE",headers:{apikey:SB.key}}).then(bump).catch(function(){});
+        msg.textContent="";return;
+      }
+    }
+    msg.textContent="Geri alınacak çizgin yok.";
+  });
+  var clr=document.getElementById("tclr"),ct=0;
+  clr.addEventListener("click",function(){
+    if(!clr.dataset.sure){clr.dataset.sure="1";clr.textContent="Hepsi silinecek, emin misin?";ct=setTimeout(function(){clr.dataset.sure="";clr.textContent="Temizle";},3500);return;}
+    clearTimeout(ct);clr.dataset.sure="";clr.textContent="Temizle";
+    S=[];seen={};last="";replay();
+    fetch(SB.url+"/rest/v1/kv?key=like."+encodeURIComponent("dr:*"),{method:"DELETE",headers:{apikey:SB.key}}).then(bump).catch(function(){msg.textContent="Temizlenemedi, tekrar dene.";});
+  });
+  document.getElementById("tsave").addEventListener("click",function(){
+    if(!cv.width)return;
+    var t=document.createElement("canvas");t.width=cv.width;t.height=cv.height;var x=t.getContext("2d");
+    x.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--card").trim()||"#222";x.fillRect(0,0,t.width,t.height);x.drawImage(cv,0,0);
+    t.toBlob(function(b){
+      var f;try{f=new File([b],"tuval.png",{type:"image/png"});}catch(e){f=null;}
+      if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f]}).catch(function(){});}
+      else{var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="tuval.png";document.body.appendChild(a);a.click();a.remove();}
+    });
+  });
+  function json(r){if(!r.ok)throw 0;return r.json();}
+  function lower(){var n=last?parseInt(last.slice(3),10):0;return n?"dr:"+(n-20000):"";}
+  function pull(from){
+    var lo=from?"&key=gt."+encodeURIComponent(from):"";
+    return fetch(SB.url+"/rest/v1/kv?select=key,value&key=like."+encodeURIComponent("dr:*")+lo+"&order=key.asc&limit=300",{headers:H}).then(json).then(function(rows){
+      rows.forEach(function(r){
+        if(r.key>last)last=r.key;
+        if(seen[r.key]||!r.value)return;seen[r.key]=1;S.push({key:r.key,v:r.value});paint(r.value);
+      });
+      if(rows.length===300)return pull(rows[rows.length-1].key);
+    });
+  }
+  function poll(){
+    if(busy||document.hidden||panel.hidden||pane.hidden||!ready)return;busy=true;
+    fetch(SB.url+"/rest/v1/kv?select=value&key=eq."+encodeURIComponent("g:tuval"),{headers:H}).then(json).then(function(r){
+      var nv=r[0]&&r[0].value&&r[0].value.v?r[0].value.v:0;
+      if(ver===null)ver=nv;
+      else if(nv!==ver){ver=nv;S=[];seen={};last="";replay();}
+      return pull(lower());
+    }).then(function(){busy=false;}).catch(function(){busy=false;});
+  }
+  function open(){
+    setTimeout(function(){
+      if(size()){ready=true;replay();}
+      poll();
+    },60);
+  }
+  var tab=document.querySelector('[data-p="tuval"]');if(tab)tab.addEventListener("click",open);
+  if(window.ResizeObserver){new ResizeObserver(function(){var w=cv.clientWidth;if(w&&Math.round(w*Math.min(2,window.devicePixelRatio||1))!==cv.width){if(size()){ready=true;replay();}}}).observe(cv);}
+  document.addEventListener("visibilitychange",function(){if(!document.hidden)poll();});
+  setInterval(poll,2000);
 })();
 
 /* ---- Fon müziği (telifsiz: tarayıcıda üretilen sakin melodi) ---- */
