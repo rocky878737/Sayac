@@ -239,6 +239,21 @@ body{background:transparent}
 .lchat .snd textarea{flex:1;min-height:44px;max-height:120px;font:inherit;font-size:1rem;background:var(--bg);color:var(--ink);border:1px solid var(--soft);border-radius:14px;padding:10px;resize:none}
 .lchat .snd textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 .lchat .snd .mini{padding:11px 16px}
+.lchat .snd .mini.ik{padding:11px 12px}
+.lchat .epan{background:var(--card);border:1px solid var(--soft);border-radius:14px;padding:8px}
+.lchat .etabs{display:flex;gap:4px;overflow-x:auto;margin-bottom:6px}
+.lchat .etab{font-size:1.2rem;padding:4px 10px;border-radius:10px;border:1px solid transparent;background:none;cursor:pointer;flex:0 0 auto;line-height:1.2}
+.lchat .etab.sel{background:var(--bg);border-color:var(--soft)}
+.lchat .egrid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;max-height:172px;overflow-y:auto}
+.lchat .eb{font-size:1.45rem;background:none;border:0;padding:4px 0;cursor:pointer;border-radius:8px;line-height:1.25}
+.lchat .eb:hover{background:var(--bg)}
+.lchat .etab:focus-visible,.lchat .eb:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.lchat .egos{font-size:.9rem;color:var(--soft);text-align:center;padding:10px 0}
+.lchat .b.ebig{font-size:2.3rem;line-height:1.25;padding:4px 12px}
+.lchat .cimg{display:block;max-width:100%;max-height:260px;border-radius:12px;cursor:zoom-in;background:var(--card)}
+.lchat .caud{display:block;width:100%;max-width:240px;height:40px}
+.bigov{position:fixed;inset:0;z-index:110;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;cursor:zoom-out}
+.bigov img{max-width:94vw;max-height:90vh;border-radius:8px}
 .ses{width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px}
 .sesrec{display:flex;flex-direction:column;align-items:center;gap:10px;background:var(--card);border-radius:16px;padding:16px}
 .recbtn{font:inherit;font-size:1.1rem;color:var(--btn-ink);background:var(--accent);border:0;border-radius:999px;padding:13px 30px;cursor:pointer}
@@ -540,7 +555,9 @@ body{background:transparent}
 <div class="row2"><button type="button" class="mini" id="cbil">🔔 Bildirimi dene</button></div>
 <div class="box" id="cbox" aria-live="polite"></div>
 <p class="ohint" id="cmsg"></p>
-<div class="snd"><textarea id="cta" maxlength="500" placeholder="Mesaj yaz…" aria-label="Mesaj" rows="1"></textarea><button type="button" class="mini pri" id="csend">Gönder</button></div>
+<div class="epan" id="epan" hidden><div class="etabs" id="etabs" role="tablist" aria-label="Emoji grupları"></div><div class="egrid" id="egrid"></div></div>
+<div class="snd"><button type="button" class="mini ik" id="cemo" aria-label="Emoji ekle" aria-expanded="false" aria-controls="epan">😊</button><button type="button" class="mini ik" id="cfoto" aria-label="Fotoğraf gönder">📷</button><button type="button" class="mini ik" id="cses" aria-label="Sesli mesaj kaydet">🎙️</button><button type="button" class="mini ik" id="ciptal" aria-label="Kaydı iptal et" hidden>✕</button><textarea id="cta" maxlength="500" placeholder="Mesaj yaz…" aria-label="Mesaj" rows="1"></textarea><button type="button" class="mini pri" id="csend">Gönder</button></div>
+<input type="file" id="cfile" accept="image/*" hidden>
 </section>
 <section class="rehber">
 <button type="button" id="rtoggle" class="oyunbtn" aria-expanded="false" aria-controls="rbody">📖 Nasıl kullanılır? ▾</button>
@@ -557,7 +574,7 @@ body{background:transparent}
 <li><b>Aşk botu:</b> Önce kim olduğunu seç, sorunu yaz veya önerilen düğmelere bas. <b>Sohbeti temizle</b> geçmişi siler.</li></ul></details>
 <details><summary>📜 Aşk taahhütnamesi</summary><ul><li>Maddeleri okuyabilir, kutuya yeni madde yazıp <b>Madde ekle</b> ile ekleyebilirsin.</li><li>Aşağıda her birinizin <b>✍️ İmzala</b> düğmesi var, kendi adının altındakine bas.</li><li>İmzayı geri almak için <b>İmzaları geri al</b>’a bas.</li></ul></details>
 <details><summary>🤫 İtiraf köşesi</summary><ul><li>Önce kim olduğunu seç: <b>Ramazan</b> veya <b>Ayten</b>.</li><li>Ne yazacağını bilmiyorsan <b>Bana bir başlangıç ver</b>’e bas, bir cümle başlangıcı gelir.</li><li><b>İtiraf et</b> ile kaydedersin. Yazdıkların altta listelenir ve karşı taraf da okuyabilir.</li></ul></details>
-<details><summary>💬 Canlı sohbet</summary><ul><li>İlk açışta <b>Ben Ramazan</b> veya <b>Ben Ayten</b>’i seç. Telefon bunu hatırlar.</li><li>Mesajı yazıp <b>Gönder</b>’e bas ya da klavyede Enter’a bas. Alt satıra geçmek için <b>Shift + Enter</b> kullan (bilgisayarda).</li><li>Sayfa açıkken yeni mesajlar birkaç saniyede kendiliğinden gelir, yenilemene gerek yok.</li><li>Kendi mesajının altındaki <b>Sil</b>’e dokun, “Emin misin? Sil” çıkınca tekrar dokun. Mesaj iki tarafta da silinir. Karşı tarafın mesajını silemezsin.</li><li>Üstteki yazıda karşı tarafın <b>🟢 şu an sohbette</b> mi yoksa en son ne zaman göründüğü yazar. Bunun çalışması için ikinizin de kim olduğunu seçmiş olması gerekir.</li><li>Telefonuna bildirim gelmesi için aşağıdaki <b>🔔 Bildirimler</b> bölümüne bak.</li></ul></details>
+<details><summary>💬 Canlı sohbet</summary><ul><li>İlk açışta <b>Ben Ramazan</b> veya <b>Ben Ayten</b>’i seç. Telefon bunu hatırlar.</li><li><b>😊</b> düğmesi emoji panelini açar. Üstteki sekmelerden grup seçip dokunduğun emoji mesaj kutusuna eklenir. Son kullandıkların en başta durur. Sadece 1-3 emojiden oluşan mesaj büyük görünür.</li><li><b>📷</b> ile galeriden fotoğraf gönderirsin (otomatik küçültülür). Fotoğrafa dokununca büyür, tekrar dokununca kapanır.</li><li><b>🎙️</b>’e basınca ses kaydı başlar, bitirince <b>⏹</b>’a bas, mesaj gider (en fazla 2 dakika). <b>✕</b> kaydı iptal eder. İlk seferde mikrofon izni ister.</li><li>Mesajı yazıp <b>Gönder</b>’e bas ya da klavyede Enter’a bas. Alt satıra geçmek için <b>Shift + Enter</b> kullan (bilgisayarda).</li><li>Sayfa açıkken yeni mesajlar birkaç saniyede kendiliğinden gelir, yenilemene gerek yok.</li><li>Kendi mesajının altındaki <b>Sil</b>’e dokun, “Emin misin? Sil” çıkınca tekrar dokun. Mesaj iki tarafta da silinir. Karşı tarafın mesajını silemezsin.</li><li>Üstteki yazıda karşı tarafın <b>🟢 şu an sohbette</b> mi yoksa en son ne zaman göründüğü yazar. Bunun çalışması için ikinizin de kim olduğunu seçmiş olması gerekir.</li><li>Telefonuna bildirim gelmesi için aşağıdaki <b>🔔 Bildirimler</b> bölümüne bak.</li></ul></details>
 <details><summary>🤝 Güven testi</summary><ul><li><b>Oyunlar → 🤝 Güven testi</b> sekmesinden başla.</li><li>12 ifade çıkar, her birine ne kadar katıldığını seç. Cevaplar kendini en dürüst hissettiğin şekilde olsun.</li><li>Sonunda genel bir yüzde, 6 konuda ayrı ayrı sonuç ve birlikte konuşmak için bir soru görürsün.</li><li>Cevapların kaydedilmez, kimse görmez. İstersen sonucu birbirinize anlatabilirsiniz.</li><li>Bu bir eğlence ve düşünme aracıdır, ilişkinizi ölçen bilimsel bir test değildir.</li></ul></details>
 <details><summary>🖌️ Ortak tuval</summary><ul><li><b>Oyunlar → 🖌️ Ortak tuval</b> sekmesini aç ve önce kim olduğunu seç.</li><li>Parmağınla çiz. Çizgin karşı tarafın tuvalinde birkaç saniye içinde belirir, onunki de seninkinde. İkiniz aynı anda çizebilirsiniz.</li><li>Renkleri ve üç kalınlığı üstten seçersin. <b>🧽</b> silgidir, sadece çizgileri siler.</li><li><b>↶ Geri al</b> sadece kendi son çizgini geri alır.</li><li><b>Temizle</b> tuvali iki taraftan siler, bu yüzden iki kere sorar.</li><li><b>Kaydet</b> resmi telefona kaydeder veya paylaşma menüsünü açar.</li><li>Karşı taraf tuvali açmamışsa çizdiğin çizgileri sayfayı açınca görür. En fazla iki dakikada bir bildirim gider.</li></ul></details>
 <details><summary>🔔 Bildirimler</summary><ul><li>Karşı taraf sohbette mesaj yazınca veya XOX’ta hamle yapınca telefonuna bildirim düşer. Sayfa kapalıyken de gelir.</li><li>Bunun için <b>ntfy</b> uygulaması gerekir (App Store veya Play Store, ücretsiz, hesap gerekmez).</li><li>Uygulamayı aç, <b>+</b> düğmesine bas, sana verilen <b>kanal adını</b> yaz ve <b>Subscribe</b>’a bas. Sunucu olarak varsayılanı (ntfy.sh) bırak.</li><li>Telefonda ntfy için bildirim iznini aç.</li><li>Sohbet bölümündeki <b>🔔 Bildirimi dene</b> düğmesi kendi telefonuna deneme bildirimi yollar. Gelmezse kanal adını ve izni kontrol et.</li><li>Bildirimde mesajın metni yazmaz, sadece yazdığı görünür. Mesajı okumak için bildirime dokunup siteyi aç.</li></ul></details>
@@ -586,7 +603,7 @@ function bildir(kime,baslik,mesaj,anahtar,bekle){
   var LS,setO=Storage.prototype.setItem,remO=Storage.prototype.removeItem;
   try{LS=window.localStorage;}catch(e){return;}
   var H={"apikey":SB.key,"Content-Type":"application/json"};
-  var SKIP={tema:1,__ts:1,__rl:1,sohbetkim:1,xoxkim:1,yagmur:1,girisbil:1},timers={};
+  var SKIP={tema:1,__ts:1,__rl:1,sohbetkim:1,xoxkim:1,yagmur:1,girisbil:1,sonemoji:1},timers={};
   function getTs(){try{return JSON.parse(LS.getItem("__ts"))||{};}catch(e){return {};}}
   function setTs(k,t){var m=getTs();m[k]=t;try{setO.call(LS,"__ts",JSON.stringify(m));}catch(e){}}
   function send(k,v,t){
@@ -1451,8 +1468,15 @@ for(var k in S){
     box.innerHTML="";
     if(!ks.length){var p=document.createElement("p");p.className="ohint";p.textContent="Henüz mesaj yok. İlk mesajı sen yaz 💌";box.appendChild(p);}
     ks.forEach(function(k){
-      var m=M[k],d=document.createElement("div");d.className="b"+(m.w===me?" me":"");
-      d.appendChild(document.createTextNode(m.t));
+      var m=M[k],d=document.createElement("div");d.className="b"+(m.w===me?" me":"")+(onlyEmoji(m)?" ebig":"");
+      if(m.k==="foto"&&m.u){
+        var im=document.createElement("img");im.className="cimg";im.alt="Fotoğraf";im.loading="lazy";im.src=m.u;
+        im.addEventListener("click",function(){big(m.u);});
+        if(force||near)im.addEventListener("load",function(){box.scrollTop=box.scrollHeight;});
+        d.appendChild(im);
+      }else if(m.k==="ses"&&m.u){
+        var au=document.createElement("audio");au.className="caud";au.controls=true;au.preload="none";au.src=m.u;d.appendChild(au);
+      }else d.appendChild(document.createTextNode(m.t));
       var s=document.createElement("small");s.textContent=(m.w===me?"":m.w+" · ")+fmt(m.d)+(m.pending?" · gönderiliyor":"")+(m.fail?" · gönderilemedi":"");
       if(m.w===me&&!m.pending&&!m.fail){
         var x=document.createElement("button");x.type="button";x.className="mini";x.textContent="Sil";
@@ -1467,7 +1491,23 @@ for(var k in S){
     });
     if(force||near)box.scrollTop=box.scrollHeight;
   }
+  function onlyEmoji(m){
+    if(m.k||!m.t)return false;
+    var t=m.t.trim();
+    if(!t||!/^[\p{Extended_Pictographic}\p{Emoji_Modifier}\u200d\ufe0f\u20e3\s]+$/u.test(t))return false;
+    var n;try{n=[].slice.call(new Intl.Segmenter("tr",{granularity:"grapheme"}).segment(t)).length;}catch(e){n=Array.from(t).length;}
+    return n<=3;
+  }
+  function big(u){
+    var o=document.createElement("div");o.className="bigov";o.setAttribute("role","dialog");o.setAttribute("aria-label","Fotoğraf");
+    var i=document.createElement("img");i.src=u;i.alt="Fotoğraf";o.appendChild(i);
+    function kapat(){o.remove();document.removeEventListener("keydown",esc);}
+    function esc(e){if(e.key==="Escape")kapat();}
+    o.addEventListener("click",kapat);document.addEventListener("keydown",esc);document.body.appendChild(o);
+  }
   function delMsg(k){
+    var m0=M[k];
+    if(m0&&m0.p)fetch(SB.url+"/storage/v1/object/medya/"+m0.p,{method:"DELETE",headers:{apikey:SB.key}}).catch(function(){});
     delete M[k];draw(false);
     fetch(SB.url+"/rest/v1/kv?key=eq."+encodeURIComponent(k),{method:"DELETE",headers:{apikey:SB.key}})
     .catch(function(){cm.textContent="Mesaj silinemedi, tekrar dene.";});
@@ -1523,6 +1563,119 @@ for(var k in S){
     if(!me){cm.textContent="Önce yukarıdan kim olduğunu seç.";return;}
     bildir(me,"🔔 Deneme","Bildirimler çalışıyor 💜");
     cm.textContent="Deneme bildirimi gönderildi. Birkaç saniye içinde telefonuna düşmeli.";
+  });
+  /* fotoğraf ve sesli mesaj */
+  function rnd(){return Math.random().toString(36).slice(2,8);}
+  function upMedia(blob,ext,mime,cb){
+    var path="chat/"+Date.now()+"-"+rnd()+"."+ext;
+    fetch(SB.url+"/storage/v1/object/medya/"+path,{method:"POST",headers:{apikey:SB.key,"Content-Type":mime,"x-upsert":"true"},body:blob})
+    .then(function(r){if(!r.ok)throw 0;cb(path);}).catch(function(){cb(null);});
+  }
+  function sendMedia(kind,blob,ext,mime,secs){
+    if(!me){cm.textContent="Önce yukarıdan kim olduğunu seç.";return;}
+    var d=Date.now(),k="msg:"+d+"-"+rnd(),label=kind==="foto"?"📷 Fotoğraf":"🎙️ Sesli mesaj";
+    M[k]={w:me,t:label,d:d,pending:true};cm.textContent="";draw(true);
+    upMedia(blob,ext,mime,function(path){
+      if(!path){M[k]={w:me,t:label,d:d,fail:true};draw(true);cm.textContent="Gönderilemedi. İnterneti kontrol edip tekrar dene.";return;}
+      var val={w:me,t:label,d:d,k:kind,u:SB.url+"/storage/v1/object/public/medya/"+path,p:path};if(secs)val.s=secs;
+      fetch(SB.url+"/rest/v1/kv",{method:"POST",headers:{apikey:SB.key,"Content-Type":"application/json",Prefer:"return=minimal"},
+        body:JSON.stringify({key:k,value:val,updated_at:new Date(d).toISOString()})})
+      .then(function(r){if(!r.ok)throw 0;M[k]=val;draw(true);bildir(other(),"💌 "+me,me+(kind==="foto"?" sana fotoğraf gönderdi 📷":" sana sesli mesaj gönderdi 🎙️"),"msg",20000);})
+      .catch(function(){M[k]={w:me,t:label,d:d,fail:true};draw(true);cm.textContent="Gönderilemedi. İnterneti kontrol edip tekrar dene.";});
+    });
+  }
+  var fi=document.getElementById("cfile");
+  document.getElementById("cfoto").addEventListener("click",function(){
+    if(!me){cm.textContent="Önce yukarıdan kim olduğunu seç.";return;}
+    fi.value="";fi.click();
+  });
+  fi.addEventListener("change",function(){
+    var f=fi.files&&fi.files[0];if(!f)return;
+    var u=URL.createObjectURL(f),im=new Image();
+    im.onload=function(){
+      var m=Math.max(im.naturalWidth,im.naturalHeight),sc=Math.min(1,1280/m),w=Math.round(im.naturalWidth*sc),h=Math.round(im.naturalHeight*sc);
+      var c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(im,0,0,w,h);URL.revokeObjectURL(u);
+      c.toBlob(function(b){if(!b){cm.textContent="Fotoğraf hazırlanamadı.";return;}sendMedia("foto",b,"jpg","image/jpeg");},"image/jpeg",.82);
+    };
+    im.onerror=function(){URL.revokeObjectURL(u);cm.textContent="Bu fotoğraf okunamadı, başka bir tane dene.";};
+    im.src=u;
+  });
+  var rec=null,rch=[],rst=0,rtm=0,rstream=null,rmime="",rcancel=false;
+  var cses=document.getElementById("cses"),cip=document.getElementById("ciptal");
+  function recUi(on){
+    cses.textContent=on?"⏹":"🎙️";cses.classList.toggle("pri",on);cses.setAttribute("aria-label",on?"Kaydı bitir ve gönder":"Sesli mesaj kaydet");cip.hidden=!on;
+    if(!on){clearInterval(rtm);}
+  }
+  function stopRec(cancel){rcancel=!!cancel;try{if(rec&&rec.state!=="inactive")rec.stop();}catch(e){}}
+  cses.addEventListener("click",function(){
+    if(rec){stopRec(false);return;}
+    if(!me){cm.textContent="Önce yukarıdan kim olduğunu seç.";return;}
+    if(!navigator.mediaDevices||!window.MediaRecorder){cm.textContent="Bu tarayıcı ses kaydını desteklemiyor.";return;}
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){
+      rstream=st;rmime="";
+      ["audio/mp4","audio/webm;codecs=opus","audio/webm","audio/ogg"].some(function(t){try{if(MediaRecorder.isTypeSupported(t)){rmime=t;return true;}}catch(e){}return false;});
+      rec=new MediaRecorder(st,rmime?{mimeType:rmime}:{});rch=[];rcancel=false;
+      rec.ondataavailable=function(e){if(e.data&&e.data.size)rch.push(e.data);};
+      rec.onstop=function(){
+        var secs=Math.round((Date.now()-rst)/1000),mt=rmime||(rec&&rec.mimeType)||"audio/webm";
+        try{rstream.getTracks().forEach(function(t){t.stop();});}catch(e){}
+        rec=null;recUi(false);
+        if(rcancel){cm.textContent="";return;}
+        if(!rch.length||secs<1){cm.textContent="Kayıt çok kısaydı, tekrar dene.";return;}
+        var base=mt.split(";")[0],ext=base.indexOf("mp4")>=0?"m4a":base.indexOf("ogg")>=0?"ogg":"webm";
+        sendMedia("ses",new Blob(rch,{type:base}),ext,base,secs);
+      };
+      rec.start();rst=Date.now();recUi(true);
+      function tick(){var t=Math.round((Date.now()-rst)/1000);cm.textContent="● Kaydediliyor "+Math.floor(t/60)+":"+("0"+t%60).slice(-2)+" — göndermek için ⏹’a bas";if(t>=120)stopRec(false);}
+      tick();rtm=setInterval(tick,500);
+    }).catch(function(){cm.textContent="Mikrofon izni verilmedi. Telefon ayarlarından siteye mikrofon izni ver.";});
+  });
+  cip.addEventListener("click",function(){stopRec(true);});
+  /* emoji seçici */
+  var EM=[
+    ["😊","Yüzler","😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 😉 😍 🥰 😘 😗 😚 😋 😛 😜 🤪 😎 🤩 🥳 😏 😌 😔 😴 🥺 😢 😭 😤 😠 😡 🤯 😳 😱 😰 🤗 🤭 🤫 🤔 🫡 🙄 😬 😮‍💨 🤤 🥵 🥶 🤒"],
+    ["❤️","Kalpler ve aşk","❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 ❣️ 💕 💞 💓 💗 💖 💘 💝 💟 💋 💌 🌹 🌷 🌸 🥀 🔥 ✨ 🌟 💫 ⭐ 🌙 ☀️ 🌈 💍 💐 🫶 😻 💑 👩‍❤️‍👨"],
+    ["👍","Eller ve jestler","👍 👎 👏 🙌 🤝 🙏 💪 👋 🤟 ✌️ 🤞 👌 🤌 🫰 🫂 👀 🙈 🙉 🙊 💃 🕺 🤷 🤦 🙋 🥂 🎉 🎁 🎂 🎈 🏆 💯 ✅ ❌ ❓ ❗"],
+    ["🐻","Sevimli hayvanlar","🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐸 🐵 🐔 🐧 🐣 🦆 🦉 🦋 🐝 🐞 🐢 🐙 🐬 🦄 🐳 🦭 🦦 🐿️ 🦔"],
+    ["🍕","Yiyecek ve diğerleri","☕ 🍵 🍕 🍔 🍟 🌮 🍫 🍩 🍪 🍰 🍓 🍒 🍑 🍉 🍷 🍿 🥞 🍳 🏠 ✈️ 🚗 🏖️ 🎬 🎵 🎧 📷 📞 💤 🌧️ ☔ ⛄ 🎄"]
+  ];
+  var epan=document.getElementById("epan"),etabs=document.getElementById("etabs"),egrid=document.getElementById("egrid"),cemo=document.getElementById("cemo");
+  var recent=[];try{recent=JSON.parse(localStorage.getItem("sonemoji")||"[]")||[];}catch(e){}
+  var etab=recent.length?-1:0;
+  function ins(e){
+    var a=ta.selectionStart==null?ta.value.length:ta.selectionStart,b=ta.selectionEnd==null?a:ta.selectionEnd;
+    if(ta.value.length-(b-a)+e.length>ta.maxLength)return;
+    ta.value=ta.value.slice(0,a)+e+ta.value.slice(b);
+    var p=a+e.length;try{ta.setSelectionRange(p,p);}catch(x){}
+    recent=[e].concat(recent.filter(function(x){return x!==e;})).slice(0,16);
+    try{localStorage.setItem("sonemoji",JSON.stringify(recent));}catch(x){}
+  }
+  function eGrid(){
+    egrid.innerHTML="";
+    var list=etab===-1?recent:EM[etab][2].split(" ");
+    if(!list.length){var p=document.createElement("p");p.className="egos";p.style.gridColumn="1/-1";p.textContent="Henüz kullandığın emoji yok.";egrid.appendChild(p);return;}
+    list.forEach(function(e){
+      var b=document.createElement("button");b.type="button";b.className="eb";b.textContent=e;b.setAttribute("aria-label","Emoji "+e);
+      b.addEventListener("mousedown",function(ev){ev.preventDefault();});
+      b.addEventListener("click",function(){ins(e);if(etab===-1)return;});
+      egrid.appendChild(b);
+    });
+  }
+  function eTabs(){
+    etabs.innerHTML="";
+    var all=[["🕘","Son kullanılanlar"]].concat(EM.map(function(g){return [g[0],g[1]];}));
+    all.forEach(function(g,i){
+      var idx=i-1,b=document.createElement("button");b.type="button";b.className="etab"+(idx===etab?" sel":"");b.textContent=g[0];
+      b.setAttribute("role","tab");b.setAttribute("aria-label",g[1]);b.setAttribute("aria-selected",idx===etab?"true":"false");
+      b.addEventListener("mousedown",function(ev){ev.preventDefault();});
+      b.addEventListener("click",function(){etab=idx;eTabs();eGrid();});
+      etabs.appendChild(b);
+    });
+  }
+  cemo.addEventListener("mousedown",function(ev){ev.preventDefault();});
+  cemo.addEventListener("click",function(){
+    var open=epan.hidden;epan.hidden=!open;cemo.setAttribute("aria-expanded",open?"true":"false");
+    if(open){if(!recent.length&&etab===-1)etab=0;eTabs();eGrid();}
   });
   sb.addEventListener("click",send);
   ta.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();send();}});
