@@ -98,6 +98,46 @@ h2{font-size:1.35rem}
 .mw span{font-size:1.05rem;text-align:right}
 .mw span.mut{color:var(--soft);font-size:.92rem}
 .mtxt{text-align:center;font-style:italic;color:var(--accent);min-height:1.2em;margin-top:2px;line-height:1.4}
+/* Açılış mektubu ve özet */
+#acilis{position:fixed;inset:0;z-index:102;background-color:var(--bg);background-image:var(--bgimg);color:var(--ink);overflow-y:auto;display:flex;opacity:0;transition:opacity .5s}
+#acilis.on{opacity:1}
+#acilis .acin{width:100%;max-width:440px;margin:0 auto;padding:max(15vh,calc(env(safe-area-inset-top) + 24px)) 22px calc(36px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:20px}
+.mek{background:var(--card);border:1px solid var(--soft);border-radius:18px;padding:26px 22px 20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.mek .mhi{font-family:var(--fh);font-size:1.7rem;line-height:1.35;color:var(--accent);min-height:1.35em}
+.mek .mbody{font-size:1.15rem;line-height:1.7;font-style:italic;min-height:8.5em;white-space:pre-wrap}
+.mek .msig{text-align:right;color:var(--soft);font-style:italic;opacity:0;transition:opacity .6s}
+.mek .msig.in{opacity:1}
+.mek .cur::after{content:"";display:inline-block;width:2px;height:1.1em;background:var(--accent);margin-left:2px;vertical-align:text-bottom;animation:kblink .9s steps(1) infinite}
+@keyframes kblink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.mek .cur::after{animation:none}}
+.msum{opacity:0;transition:opacity .5s}
+.msum.in{opacity:1}
+.msum h3{font-family:var(--fh);font-weight:400;font-size:1.25rem;margin:0 0 10px;text-align:center;color:var(--ink)}
+.msum ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+.msum li{background:var(--card);border-radius:14px;padding:11px 14px;line-height:1.4;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.msum li.in{opacity:1;transform:none}
+.msum li small{display:block;color:var(--soft);font-style:italic;margin-top:3px;font-size:.88rem}
+.mfoot{display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:opacity .5s;min-height:56px}
+.mfoot.in{opacity:1}
+.mfoot .skip{background:none;border:0;color:var(--soft);font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;padding:6px}
+/* Minik */
+.mkstage{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px}
+#mkcat{width:min(68vw,250px);padding:0;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:24px}
+#mkcat:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+#mkcat svg{width:100%;height:auto;display:block;overflow:visible}
+.mkbubble{background:var(--bg);border-radius:16px;padding:8px 16px;font-style:italic;text-align:center;line-height:1.4;max-width:100%}
+.mk-tail{transform-origin:170px 165px;animation:mkwag 1.4s ease-in-out infinite alternate}
+.mk-sad .mk-tail,.mk-hungry .mk-tail{animation-duration:3.2s}
+.mk-head{transform-origin:120px 140px}
+.eat .mk-head{animation:mknom .36s ease-in-out 10}
+.purr svg{animation:mkpurr .12s linear infinite}
+@keyframes mkwag{from{transform:rotate(-8deg)}to{transform:rotate(14deg)}}
+@keyframes mknom{50%{transform:translateY(9px) rotate(3deg)}}
+@keyframes mkpurr{0%,100%{transform:translateX(0)}50%{transform:translateX(1.6px)}}
+.mkfood{position:absolute;top:0;left:50%;font-size:2rem;line-height:1;pointer-events:none;animation:mkdrop 1.1s ease-in forwards}
+@keyframes mkdrop{0%{transform:translate(-50%,-10px);opacity:0}25%{opacity:1}100%{transform:translate(-50%,170px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.mk-tail,.eat .mk-head,.purr svg,.mkfood{animation:none}}
+.mkfoods{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 /* Sekmeli düzen */
 body{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
 .tabpage{width:100%;display:flex;flex-direction:column;align-items:center;gap:28px}
@@ -504,12 +544,13 @@ body{background:transparent}
 <div id="rbody" hidden style="width:100%;display:flex;flex-direction:column;gap:10px">
 <details><summary>🌟 Genel bilgi</summary><ul><li>Açılışta önce <b>Ben Ramazan</b> veya <b>Ben Ayten</b>’i seç, sonra şifreyi gir. Seçimin telefonunda hatırlanır, her açışta hazır gelir. Başkası senin telefonunu kullanacaksa o seferde ismini değiştir.</li><li>Giriş yapınca karşı tarafa <b>“siteye girdi”</b> bildirimi gider (aynı kişi için en fazla 10 dakikada bir). Sohbet, XOX, tuval ve günün notu seçtiğin ismi kullanır, tekrar seçmen gerekmez.</li><li>Sağ üstteki <b>🎵</b> düğmesi sakin bir fon müziğini çalar, <b>⏸</b> ile durdurursun. Yanında ses ayarı çıkar. Müzik telif sorunu olmasın diye tarayıcıda üretilir. iPhone’da yan taraftaki sessiz düğmesi açıksa ses gelmeyebilir. Sayfadan çıkınca müzik durur.</li>
 <li>Sağ üstteki <b>🌧️</b> düğmesi arkada yavaşça düşen kalp ve yıldızları, ayrıca ekrana dokunduğunda çıkan kalp izini açar veya kapatır. Pili yoruyorsa kapat.</li>
-<li>Sağ üstteki <b>🎨</b> düğmesi tema paketlerini açar. Başlangıç teması Orman, istersen Gece moru, Gece mavisi, Gün batımı, Pastel pembe, Gül veya Krem’i seçebilirsin. Birine dokununca renkler, düğmeler, arka plan ve yağan şekiller birlikte değişir. Seçim sadece kendi telefonunda kalır, ikiniz farklı tema kullanabilirsiniz.</li><li>Ana sayfadaki <b>💭 Bugün nasıl hissediyoruz?</b> bölümünde ikiniz de o günkü ruh halini seçersiniz. İkinizin seçimi altta yan yana görünür, karşı taraf seçince bildirim gider. Her gün sıfırlanır.</li><li>Altta <b>🏠 Ana sayfa, 💬 Sohbet, 🎮 Oyunlar, 📸 Anılar</b> sekmeleri var. Ana sayfada sayaç, günün notu, bitki ve dokunuş; Sohbet’te canlı sohbet, sevgi sözleri, zarf ve itiraflar; Oyunlar’da tüm oyunlar; Anılar’da fotoğraflar, gökyüzü, ses kayıtları ve taahhütname var.</li><li>Yazdığın her şey (notlar, sesler, fotoğraflar, itiraflar, dilekler, sohbet) <b>ikinizde de ortak</b> görünür. İnternet gerekir.</li><li>Çoğu <b>Sil</b> düğmesi iki aşamalıdır: ilk dokunuşta “Emin misin?” der, ikinci dokunuşta siler. Yanlışlıkla silmeni önler.</li></ul></details>
+<li>Sağ üstteki <b>🎨</b> düğmesi tema paketlerini açar. Başlangıç teması Orman, istersen Gece moru, Gece mavisi, Gün batımı, Pastel pembe, Gül veya Krem’i seçebilirsin. Birine dokununca renkler, düğmeler, arka plan ve yağan şekiller birlikte değişir. Seçim sadece kendi telefonunda kalır, ikiniz farklı tema kullanabilirsiniz.</li><li>Ana sayfadaki <b>💭 Bugün nasıl hissediyoruz?</b> bölümünde ikiniz de o günkü ruh halini seçersiniz. İkinizin seçimi altta yan yana görünür, karşı taraf seçince bildirim gider. Her gün sıfırlanır.</li><li>Şifreyi girince önce kısa bir <b>mektup</b> yazılır (saate ve güne göre değişir, özel günlerde konfeti çıkar). Son girişinden beri karşı tarafın bıraktıkları (mesaj, dokunuş, zarf, itiraf, ruh hali, çark…) altında <b>“Sen yokken…”</b> diye özetlenir. Mektubu hızlandırmak için ekrana dokun, kapatmak için <b>Devam</b>’a bas. 10 dakika içinde tekrar girersen mektup kısa geçilir, yeni bir şey yoksa hiç çıkmaz.</li><li>Altta <b>🏠 Ana sayfa, 💬 Sohbet, 🎮 Oyunlar, 📸 Anılar</b> sekmeleri var. Ana sayfada sayaç, günün notu, bitki ve dokunuş; Sohbet’te canlı sohbet, sevgi sözleri, zarf ve itiraflar; Oyunlar’da tüm oyunlar; Anılar’da fotoğraflar, gökyüzü, ses kayıtları ve taahhütname var.</li><li>Yazdığın her şey (notlar, sesler, fotoğraflar, itiraflar, dilekler, sohbet) <b>ikinizde de ortak</b> görünür. İnternet gerekir.</li><li>Çoğu <b>Sil</b> düğmesi iki aşamalıdır: ilk dokunuşta “Emin misin?” der, ikinci dokunuşta siler. Yanlışlıkla silmeni önler.</li></ul></details>
 <details><summary>⏳ Sayaç, günün notu ve “Bana dokun”</summary><ul><li>Üstteki sayaç birlikte geçen günü, ayı, saati ve saniyeyi canlı gösterir.</li><li>“Bugünün notu” her gün kendiliğinden yeni bir söz gösterir. İstersen <b>✎ Notu düzenle</b> ile kendin yaz, <b>Kaydet</b>’e bas. Yazdığın not iki telefonda da görünür, altında kimin yazdığı çıkar (sohbette kim olduğunu seçtiysen) ve karşı tarafa bildirim gider. Not sadece o gün için geçerlidir, ertesi gün yine yeni bir söz çıkar. <b>Varsayılana dön</b> kendi notunu silip günün sözüne döner.</li><li><b>Bana dokun</b> düğmesi gizli bir mesajı açar, tekrar dokununca kapanır. Basınca ekran bir kalp atışı gibi atar, titreşimi destekleyen telefonlarda (çoğu Android) telefon da titrer. iPhone titreşime izin vermez, sadece görüntü atar.</li></ul></details>
 <details><summary>💌 Sevgi sözleri</summary><ul><li>“Sevgi sözleri” düğmesine dokununca liste açılır.</li><li>Alttaki kutuya yeni söz yazıp <b>Söz ekle</b> de, listeye eklenir.</li><li>Beğenmediğin sözü silebilirsin. <b>İlk haline getir</b> ilk listeyi geri getirir.</li></ul></details>
 <details><summary>✉️ Zarf</summary><ul><li><b>Zarf ekle</b> de, içine istediğin mesajı yaz, <b>Zarfı ekle</b> ile kaydet.</li><li>Zarfa dokununca açılır, içindeki yazı görünür. Sonra istersen silebilirsin.</li></ul></details>
 <details><summary>🎙️ Ses kayıtları</summary><ul><li><b>Kaydı başlat</b>’a bas, konuş, bitince <b>Durdur ve kaydet</b>’e bas.</li><li>İlk seferde telefon mikrofon izni ister, <b>İzin ver</b> de. Vermediysen iPhone’da: adres çubuğundaki <b>aA → Web Sitesi Ayarları → Mikrofon → İzin ver</b>, sonra sayfayı yenile.</li><li>“Kaydedildi ✓” yazısı gelince kayıt buluta yüklenmiştir ve karşı taraf da dinleyebilir.</li><li>Kaydın altındaki oynatıcıdan dinlenir. <b>Sil</b> ile iki tarafta da silinir.</li><li>Sayfayı Safari veya Chrome’da <b>https://</b> adresinden aç, dosyayı doğrudan açarsan mikrofon çalışmaz.</li></ul></details>
 <details><summary>🖼️ Fotoğraflar</summary><ul><li>Fotoğrafları değiştirmek için <b>✎ Fotoğrafları düzenle</b>’ye bas.</li><li><b>＋ Fotoğraf ekle</b> ile galeriden bir veya birkaç tane seç. En fazla 12 fotoğraf olur.</li><li>Her fotoğrafın altında <b>Değiştir</b> ve <b>Sil</b> çıkar. <b>İlk haline getir</b> ilk fotoğrafları geri getirir.</li><li>İşin bitince <b>Düzenlemeyi bitir</b>’e bas.</li></ul></details>
+<details><summary>🐱 Minik</summary><ul><li><b>Oyunlar → 🐱 Minik</b> sekmesinde kedimiz Minik’i beslersiniz. İkiniz de besleyebilirsiniz, Minik ortak.</li><li>Minik zamanla acıkır. Tokluk çubuğu azaldıkça yüzü değişir. 🥣 Mama, 🥛 Süt, 🐟 Balık, 🍗 Tavuk veya 🍪 Ödül seç, balık en doyurucusu.</li><li>Minik doyduysa bir süre yemez, biraz sonra tekrar dene.</li><li><b>🤚 Sev</b>’e ya da Minik’e dokunursan mırıldanır.</li><li>Biriniz besleyince diğerine bildirim gider. Minik acıkmışsa girişteki “Sen yokken…” listesinde de görürsün.</li></ul></details>
 <details><summary>🎮 Oyunlar</summary><ul><li>Alttaki <b>🎮 Oyunlar</b> sekmesine geç, üstteki düğmelerden bir oyun seç.</li><li><b>Kalp yakala:</b> 30 saniyede düşen kalplere dokun, kırık kalplerden kaç.</li><li><b>Sevgi ölçer:</b> Kalbe basılı tut, ölçer dolar.</li><li><b>Çizim:</b> Parmağınla çiz, renk seç. <b>Kaydet / Gönder</b> resmi paylaşma menüsünü açar veya telefona indirir.</li><li><b>Kayan yıldız:</b> Yıldız kaydır, dileğini yaz ve sakla. Dilekler listede durur.</li><li><b>Çark:</b> Kim çevirirse çevirsin, karşı taraf da çark sekmesindeyse aynı çarkın aynı sonuca dönüşünü kendi ekranında görür. Altta son 5 çevirme listelenir, sekmede değilse karşı tarafa bildirim gider. Kim olduğunu seçmediysen çevirme sadece sende görünür.</li><li><b>Çarkı çevirmek:</b> Ödüller veya tatlı görevler çarkını seç, <b>Çevir</b>’e bas.</li><li><b>Fal küresi:</b> Günde bir kez bugünün falına bakarsın.</li><li><b>XOX:</b> Önce kim olduğunu seç. İkiniz de bu sekmedeyken sırayla oynarsınız, hamle karşı tarafta birkaç saniyede görünür. Sıra sende değilse kareler kapalıdır. Skor tutulur, <b>Yeni oyun</b> ilk hamleyi diğerine verir.</li>
 <li><b>Aşk botu:</b> Önce kim olduğunu seç, sorunu yaz veya önerilen düğmelere bas. <b>Sohbeti temizle</b> geçmişi siler.</li></ul></details>
 <details><summary>📜 Aşk taahhütnamesi</summary><ul><li>Maddeleri okuyabilir, kutuya yeni madde yazıp <b>Madde ekle</b> ile ekleyebilirsin.</li><li>Aşağıda her birinizin <b>✍️ İmzala</b> düğmesi var, kendi adının altındakine bas.</li><li>İmzayı geri almak için <b>İmzaları geri al</b>’a bas.</li></ul></details>
@@ -574,6 +615,7 @@ body{background:transparent}
 <button type="button" id="oyunbtn" class="oyunbtn" aria-expanded="false" aria-controls="oyunpanel">🎮 Oyunlar ▾</button>
 <div id="oyunpanel" hidden>
 <div class="tabs" role="tablist" aria-label="Oyunlar">
+<button type="button" role="tab" class="mini" data-p="minik">🐱 Minik</button>
 <button type="button" role="tab" class="mini" data-p="kalp">Kalp yakala</button>
 <button type="button" role="tab" class="mini" data-p="olcer">Sevgi ölçer</button>
 <button type="button" role="tab" class="mini" data-p="ciz">Çizim</button>
@@ -584,6 +626,21 @@ body{background:transparent}
 <button type="button" role="tab" class="mini" data-p="xox">❌⭕ XOX</button>
 <button type="button" role="tab" class="mini" data-p="guven">🤝 Güven testi</button>
 <button type="button" role="tab" class="mini" data-p="tuval">🖌️ Ortak tuval</button>
+</div>
+
+<div class="pane" id="p-minik" hidden>
+<h2>Minik 🐱</h2>
+<p class="ohint" id="mkhint"></p>
+<div class="mkstage" id="mkstage">
+<button type="button" id="mkcat" aria-label="Minik’i sev"></button>
+<p class="mkbubble" id="mkbub" aria-live="polite"></p>
+</div>
+<div class="obar" role="progressbar" aria-label="Minik’in tokluğu"><i id="mkbar"></i></div>
+<p class="otxt" id="mktok" style="font-size:1rem"></p>
+<div class="mkfoods" id="mkfoods" role="group" aria-label="Minik’i besle"></div>
+<div class="row2"><button type="button" class="mini" id="mkpet">🤚 Sev</button></div>
+<p class="ohint" id="mkinfo"></p>
+<p class="ohint" id="mkmsg" aria-live="polite" style="min-height:1.2em"></p>
 </div>
 
 <div class="pane" id="p-kalp" hidden>
@@ -761,7 +818,7 @@ function bildir(kime,baslik,mesaj,anahtar,bekle){
   var LS,setO=Storage.prototype.setItem,remO=Storage.prototype.removeItem;
   try{LS=window.localStorage;}catch(e){return;}
   var H={"apikey":SB.key,"Content-Type":"application/json"};
-  var SKIP={tema:1,tema2:1,__ts:1,__rl:1,sohbetkim:1,xoxkim:1,yagmur:1,girisbil:1,sonemoji:1,dokseen:1},timers={};
+  var SKIP={tema:1,tema2:1,sonziyaret:1,sonmektup:1,kacnot:1,__ts:1,__rl:1,sohbetkim:1,xoxkim:1,yagmur:1,girisbil:1,sonemoji:1,dokseen:1},timers={};
   function getTs(){try{return JSON.parse(LS.getItem("__ts"))||{};}catch(e){return {};}}
   function setTs(k,t){var m=getTs();m[k]=t;try{setO.call(LS,"__ts",JSON.stringify(m));}catch(e){}}
   function send(k,v,t){
@@ -781,9 +838,9 @@ function bildir(kime,baslik,mesaj,anahtar,bekle){
 
   /* açılışta: buluttaki daha yeni veriyi al, telefondaki daha yeniyi/eksiği buluta gönder */
   try{
-    fetch(SB.url+"/rest/v1/kv?select=key,updated_at&key=not.like.ses:*&key=not.like.msg:*&key=not.like.on:*&key=not.like.g:*&key=not.like.dr:*&key=not.like.bk:*&key=not.like.hs:*",{headers:H}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(rows){
+    fetch(SB.url+"/rest/v1/kv?select=key,updated_at&key=not.like.ses:*&key=not.like.msg:*&key=not.like.on:*&key=not.like.g:*&key=not.like.dr:*&key=not.like.bk:*&key=not.like.hs:*&key=not.like.pt:*",{headers:H}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(rows){
       var local=getTs(),remote={},need=[];
-      rows.forEach(function(r){if(r.key.indexOf("ses:")!==0&&r.key.indexOf("msg:")!==0&&r.key.indexOf("on:")!==0&&r.key.indexOf("g:")!==0&&r.key.indexOf("dr:")!==0&&r.key.indexOf("bk:")!==0&&r.key.indexOf("hs:")!==0&&!SKIP[r.key])remote[r.key]=Date.parse(r.updated_at);});
+      rows.forEach(function(r){if(r.key.indexOf("ses:")!==0&&r.key.indexOf("msg:")!==0&&r.key.indexOf("on:")!==0&&r.key.indexOf("g:")!==0&&r.key.indexOf("dr:")!==0&&r.key.indexOf("bk:")!==0&&r.key.indexOf("hs:")!==0&&r.key.indexOf("pt:")!==0&&!SKIP[r.key])remote[r.key]=Date.parse(r.updated_at);});
       Object.keys(remote).forEach(function(k){if(!(local[k]>=remote[k]))need.push(k);});
       for(var i=0;i<LS.length;i++){
         var k=LS.key(i);if(SKIP[k]||need.indexOf(k)>=0)continue;
@@ -1132,6 +1189,8 @@ for(var k in S){
     if(!kim){err.textContent="Önce kim olduğunu seç 💜";return;}
     if(String(cyrb53("RA27|"+pw.value.trim()))===HASH){
       applyKim();openDoors();
+      var rm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+      setTimeout(function(){if(window.acilisKarsilama)window.acilisKarsilama(kim);},rm?150:1900);
     }else{err.textContent="Şifre yanlış, tekrar dene.";pw.value="";pw.focus();}
   }
   document.getElementById("lockbtn").addEventListener("click",tryOpen);
@@ -1212,7 +1271,7 @@ for(var k in S){
     panel.hidden=!open;
     btn.setAttribute("aria-expanded",open?"true":"false");
     btn.textContent=open?"🎮 Oyunlar ▴":"🎮 Oyunlar ▾";
-    if(open&&first){select("kalp");first=false;}
+    if(open&&first){select("minik");first=false;}
     if(!open&&window.kalpStop)window.kalpStop();
   });
 
@@ -1381,7 +1440,7 @@ for(var k in S){
   });
   document.getElementById("zmake").addEventListener("click",function(){
     var v=ta.value.trim();if(!v){ta.focus();return;}
-    Z.unshift({t:v,d:Date.now()});save();openI=-1;render();
+    Z.unshift({t:v,d:Date.now(),w:(function(){try{return localStorage.getItem("sohbetkim")||"";}catch(e){return "";}})()});save();openI=-1;render();
     ta.value="";w.hidden=true;wb.textContent="✉️ Zarf ekle";
     zm.textContent="Zarf eklendi ✉️ Dokunarak açabilirsin.";
   });
@@ -1733,7 +1792,7 @@ for(var k in S){
     M[k]={w:me,t:v,d:d,pending:true};ta.value="";cm.textContent="";draw(true);
     fetch(SB.url+"/rest/v1/kv",{method:"POST",headers:{apikey:SB.key,"Content-Type":"application/json",Prefer:"return=minimal"},
       body:JSON.stringify({key:k,value:val,updated_at:new Date(d).toISOString()})})
-    .then(function(r){if(!r.ok)throw 0;M[k]=val;draw(true);bildir(other(),"💌 "+me,me+" sana mesaj yazdı","msg",20000);})
+    .then(function(r){if(!r.ok)throw 0;M[k]=val;draw(true);bildir(other(),"💌 "+me,v.length>140?v.slice(0,140)+"…":v,"msg",0);})
     .catch(function(){M[k]={w:me,t:v,d:d,fail:true};draw(true);cm.textContent="Mesaj gönderilemedi. İnterneti kontrol edip tekrar yaz.";});
   }
   /* fotoğraf ve sesli mesaj */
@@ -3059,6 +3118,278 @@ try{indexedDB.deleteDatabase("sarkilar");}catch(e){}
   setInterval(function(){var pg=$("tab-ana");if(pg&&!pg.hidden)load();},25000);
   document.addEventListener("visibilitychange",function(){if(!document.hidden)load();});
   window.moodLoad=load;
+  window.moodLabel=function(id){var f=find(id);return f?f[1]+" "+f[2]:"";};
+})();
+
+/* ---- Açılış: daktilo mektubu + kaçırdıkların özeti ---- */
+(function(){
+  var SENT=["{o} gözünü açtığında ilk seni düşünüyor.","Bugün küçük bir şey bile olsa {oa} bir mesaj yaz, çok mutlu olur.","Seni seven biri var ve şu an bile seni düşünüyor 💜","Bugün kendine de iyi davran, {o} seni böyle seviyor.","Gülüşün {oin} günlerini güzelleştiriyor.","Yorulduysan bir nefes al, {o} hep yanında.","Bu sayfa sizin küçük dünyanız. Burada her şey sadece ikinize ait.","Bugün sarılacak biri yoksa {oi} hatırla, o da seni sarıyor 🤗","Aranızdaki mesafe ne olursa olsun, kalpleriniz aynı yerde.","Bugün {oa} güzel bir şey söylemeyi unutma 💌"];
+  var AD={Ramazan:{n:"Ramazan",a:"Ramazan’a",i:"Ramazan’ı",g:"Ramazan’ın"},Ayten:{n:"Ayten",a:"Ayten’e",i:"Ayten’i",g:"Ayten’in"}};
+  var $=function(i){return document.getElementById(i);};
+  function day(){var n=new Date();return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");}
+  function jget(path){return fetch(SB.url+"/rest/v1/"+path,{headers:{apikey:SB.key}}).then(function(r){if(!r.ok)throw 0;return r.json();});}
+  function ls(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function lset(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  function jparse(k){try{return JSON.parse(ls(k));}catch(e){return null;}}
+
+  function letter(kim){
+    var now=new Date(),h=now.getHours(),A={n:"sevgilin",a:"sevgiline",i:"sevgilini",g:"sevgilinin"};
+    var gr=h>=5&&h<11?"Günaydın":h>=11&&h<17?"Merhaba":h>=17&&h<22?"İyi akşamlar":"İyi geceler";
+    var d=Math.floor(Math.max(0,now-start)/864e5),mo=(now.getFullYear()-start.getFullYear())*12+now.getMonth()-start.getMonth();
+    var anchor=new Date(start.getFullYear(),start.getMonth()+mo,start.getDate());if(now<anchor)mo--;
+    var line,special=false;
+    if(d>0&&d%100===0){line="Bugün "+d+". günümüz! Böyle günler bir kez gelir 🎉";special=true;}
+    else if(mo>=1&&now.getDate()===start.getDate()){line="Bugün "+mo+". ayımız! İyi ki varsın 💜";special=true;}
+    else if(h>=1&&h<5)line="Uyku tutmadıysa "+A.i+" düşün, gözlerin kendiliğinden kapanır 😴";
+    else{var idx=(Math.floor(now/864e5)+(kim==="Ayten"?3:0))%SENT.length;
+      line=SENT[idx].replace("{oin}",A.g).replace("{oa}",A.a).replace("{oi}",A.i).replace("{o}",A.n);}
+    line=line.charAt(0).toLocaleUpperCase("tr")+line.slice(1);
+    return {hi:gr+" sevgilim,",body:"Seninle "+d+" gündür birlikteyiz.\n\n"+line,sig:"— Sevgiyle, sayfamız 💜",special:special};
+  }
+
+  /* son ziyaretten beri karşı tarafın bıraktıkları */
+  function collect(kim,last){
+    var o=kim==="Ramazan"?"Ayten":"Ramazan",S="Sevgilin",t=day(),items=[];
+    var keys=["hs:"+t+":"+o,"bk:"+t+":"+o,"bk:"+t+":"+kim,"g:dokunus","g:cark","g:xox"].map(function(k){return '"'+k+'"';}).join(",");
+    return Promise.all([
+      jget("kv?select=key,value&key=like."+encodeURIComponent("msg:*")+"&order=key.desc&limit=100"),
+      jget("kv?select=key,value,updated_at&key=in.("+encodeURIComponent(keys)+")"),
+      jget("kv?select=value&key=like."+encodeURIComponent("pt:*")+"&order=key.desc&limit=60").catch(function(){return [];})
+    ]).then(function(res){
+      var msgs=res[0].map(function(r){return r.value;}).filter(function(v){return v&&v.w===o&&v.d>last;});
+      if(msgs.length){
+        var tx=0,ft=0,ss=0,lastTxt=null;
+        msgs.forEach(function(v){if(v.k==="foto")ft++;else if(v.k)ss++;else{tx++;if(!lastTxt||v.d>lastTxt.d)lastTxt=v;}});
+        var parts=[];if(tx)parts.push(tx+" mesaj");if(ft)parts.push(ft+" fotoğraf");if(ss)parts.push(ss+" sesli mesaj");
+        var it={i:"💬",t:S+" sana "+parts.join(", ")+" gönderdi"};
+        if(lastTxt)it.s="“"+(lastTxt.t.length>70?lastTxt.t.slice(0,70)+"…":lastTxt.t)+"”";
+        items.push(it);
+      }
+      var K={};res[1].forEach(function(r){K[r.key]=r;});
+      var dk=K["g:dokunus"]&&K["g:dokunus"].value;
+      if(dk&&dk.by===o&&dk.n>last)items.push({i:"💞",t:S+" sana bir dokunuş gönderdi",s:dk.note?"“"+dk.note+"”":""});
+      var hm=K["hs:"+t+":"+o];
+      if(hm&&Date.parse(hm.updated_at)>last&&hm.value&&window.moodLabel){var lb=window.moodLabel(hm.value.m);if(lb)items.push({i:lb.split(" ")[0],t:S+" bugün "+lb.split(" ").slice(1).join(" ").toLocaleLowerCase("tr")+" hissediyor"});}
+      var bk=K["bk:"+t+":"+o];
+      if(bk&&Date.parse(bk.updated_at)>last&&!K["bk:"+t+":"+kim])items.push({i:"🌱",t:S+" bitkiyi suladı, sıra sende 💧"});
+      var ck=K["g:cark"]&&K["g:cark"].value;
+      if(ck&&ck.h){var hh=ck.h.filter(function(x){return x.by===o&&x.d>last;});
+        if(hh.length){var lx=hh.reduce(function(a,b){return b.d>a.d?b:a;});items.push({i:"🎡",t:S+" çarkı "+(hh.length>1?hh.length+" kez ":"")+"çevirdi",s:(lx.e||"")+" "+(lx.t||"")});}}
+      var xx=K["g:xox"];
+      if(xx&&xx.value&&Date.parse(xx.updated_at)>last&&!xx.value.w&&xx.value.t===(kim==="Ramazan"?"X":"O"))items.push({i:"❌⭕",t:"XOX’ta sıra sende"});
+      var pe=(res[2]||[]).map(function(r){return r.value;}).filter(function(v){return v&&v.t&&v.by;});
+      var pf=pe.filter(function(v){return v.by===o&&v.t>last;});
+      if(pf.length)items.push({i:"🐱",t:S+" Minik’i "+(pf.length>1?pf.length+" kez ":"")+"besledi"});
+      if(pe.length&&window.minikState&&window.minikState(pe,Date.now())<30)items.push({i:"😿",t:"Minik acıkmış, sıra sende"});
+      var Z=jparse("zarflar")||[];
+      var zn=Z.filter(function(z){return z&&z.w&&z.w!==kim&&z.d>last;}).length;
+      if(zn)items.push({i:"✉️",t:zn+" yeni zarf bırakıldı"});
+      var L=jparse("itiraflar")||[];
+      var inn=L.filter(function(x){return x&&x.w===o&&x.d>last;}).length;
+      if(inn)items.push({i:"🤫",t:S+" "+(inn>1?inn+" itiraf":"bir itiraf")+" yazdı"});
+      var bn=jparse("bugunnot");
+      if(bn&&bn.d===t&&bn.w===o&&bn.t&&ls("kacnot")!==bn.d+"|"+bn.t){items.push({i:"📝",t:S+" bugünün notunu yazdı",s:"“"+bn.t+"”"});lset("kacnot",bn.d+"|"+bn.t);}
+      return items;
+    });
+  }
+
+  window.acilisKarsilama=function(kim){
+    if(!kim||$("acilis"))return;
+    var now=Date.now(),last=+ls("sonziyaret")||0,lastL=+ls("sonmektup")||0,quick=now-lastL<10*60*1000;
+    if(last&&now-last>14*864e5)last=now-14*864e5;
+    if(quick){
+      if(!last)return;
+      collect(kim,last).then(function(its){lset("sonziyaret",String(Date.now()));if(its.length)build(kim,last,now,true,its);}).catch(function(){});
+      return;
+    }
+    build(kim,last,now,false,null);
+  };
+  function build(kim,last,now,quick,pre){
+    var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var L=letter(kim),items=pre||[],ready=!!pre,done=false,closed=false,timers=[];
+    function later(fn,ms){timers.push(setTimeout(fn,ms));}
+    var ov=document.createElement("div");ov.id="acilis";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");ov.setAttribute("aria-label","Karşılama mektubu");
+    ov.innerHTML='<div class="acin"><div class="mek"><span class="vh"></span><p class="mhi" aria-hidden="true"></p><p class="mbody" aria-hidden="true"></p><p class="msig" aria-hidden="true"></p></div><div class="msum" hidden><h3>Sen yokken… 💌</h3><ul></ul></div><div class="mfoot"><button type="button" class="oyunbtn" id="mdone" hidden>Devam ✨</button><button type="button" class="skip" id="mskip">Atla ›</button></div></div>';
+    ov.querySelector(".vh").textContent=L.hi+" "+L.body+" "+L.sig;
+    var hi=ov.querySelector(".mhi"),bd=ov.querySelector(".mbody"),sg=ov.querySelector(".msig"),sm=ov.querySelector(".msum"),ul=sm.querySelector("ul"),ft=ov.querySelector(".mfoot"),dn=ov.querySelector("#mdone"),sk=ov.querySelector("#mskip");
+    document.body.appendChild(ov);document.body.style.overflow="hidden";
+    void ov.offsetWidth;ov.classList.add("on");
+    lset("sonmektup",String(now));
+
+    function close(){
+      if(closed)return;closed=true;timers.forEach(clearTimeout);ov.classList.remove("on");document.body.style.overflow="";
+      document.removeEventListener("keydown",key);setTimeout(function(){ov.remove();},500);
+    }
+    function key(e){if(e.key==="Escape")close();else if((e.key==="Enter"||e.key===" ")&&done&&document.activeElement===document.body)close();}
+    document.addEventListener("keydown",key);
+    dn.addEventListener("click",close);
+
+    function showItems(instant){
+      if(!items.length)return;
+      sm.hidden=false;ul.innerHTML="";
+      items.forEach(function(it,i){
+        var li=document.createElement("li");li.textContent=it.i+" "+it.t;
+        if(it.s){var sl=document.createElement("small");sl.textContent=it.s;li.appendChild(sl);}
+        ul.appendChild(li);
+        if(instant)li.classList.add("in");else later(function(){li.classList.add("in");},350+i*320);
+      });
+      void sm.offsetWidth;sm.classList.add("in");
+    }
+    function finish(){
+      if(done)return;done=true;timers.forEach(clearTimeout);timers=[];
+      hi.textContent=L.hi;bd.textContent=L.body;hi.classList.remove("cur");bd.classList.remove("cur");sg.textContent=L.sig;sg.classList.add("in");
+      sk.hidden=true;dn.hidden=false;ft.classList.add("in");
+      if(ready)showItems(true);
+      try{dn.focus({preventScroll:true});}catch(e){}
+      if(L.special&&window.konfeti&&!quick)window.konfeti(70);
+    }
+    function typed(el,txt,speed,cb){
+      var i=0;el.classList.add("cur");
+      (function step(){
+        if(done)return;
+        if(i>=txt.length){el.classList.remove("cur");cb();return;}
+        var ch=txt.charAt(i++);el.textContent=txt.slice(0,i);
+        var dl=speed+(ch==="."||ch==="!"||ch==="," ? 220 : ch==="\n"?260:0)+Math.random()*speed*.6;
+        later(step,dl);
+      })();
+    }
+    function afterLetter(){
+      if(done)return;
+      sg.textContent=L.sig;sg.classList.add("in");
+      later(function(){
+        if(done)return;done=true;
+        sk.hidden=true;dn.hidden=false;ft.classList.add("in");
+        if(ready)showItems(false);
+        try{dn.focus({preventScroll:true});}catch(e){}
+        if(L.special&&window.konfeti)window.konfeti(70);
+      },600);
+    }
+    ft.classList.add("in");
+    sk.addEventListener("click",finish);
+    ov.addEventListener("click",function(e){if(!done&&e.target!==dn)finish();});
+
+    if(reduce||quick){finish();}
+    else{typed(hi,L.hi,55,function(){later(function(){typed(bd,L.body,32,afterLetter);},350);});}
+
+    /* özet: yalnızca daha önce girdiysen */
+    if(pre)return;
+    if(!last){lset("sonziyaret",String(now));ready=true;return;}
+    collect(kim,last).then(function(its){
+      items=its;ready=true;lset("sonziyaret",String(Date.now()));
+      if(done)showItems(false);
+    }).catch(function(){ready=true;});
+  }
+})();
+
+/* ---- Minik (kedimiz) ---- */
+(function(){
+  var FOODS=[["mama","🥣","Mama",30],["sut","🥛","Süt",15],["balik","🐟","Balık",40],["tavuk","🍗","Tavuk",35],["odul","🍪","Ödül",10]];
+  var DECAY=7,FULL=90;
+  var SAY={happy:["Mırrr 💕","Karnım tok, kalbim dolu!","Bugün çok şanslıyım 🐾","Sizi seviyorum, mırr!"],ok:["Mırnav 🐱","Biraz atıştırsam fena olmaz…","Beni sevmeye ne dersin?"],sad:["Miyav… mama var mı?","Karnım guruldadı 😿","Kasede bir şey kalmamış…"],hungry:["MİYAAAV! Acıktım!","Beni unuttunuz mu? 🙀","Mamaaaa lütfen!"]};
+  var HINT={happy:"Minik tok ve mutlu 😸",ok:"Minik idare ediyor 🐱",sad:"Minik acıkmış 😿",hungry:"Minik çok aç! 🙀"};
+  var PET=["Mırrr mırrr 💜","Biraz daha, biraz daha… 😽","Burası çok güzel, mırr!"];
+  var $=function(i){return document.getElementById(i);};
+  var pane=$("p-minik"),stage=$("mkstage"),catB=$("mkcat"),bub=$("mkbub"),bar=$("mkbar"),tok=$("mktok"),hint=$("mkhint"),info=$("mkinfo"),msg=$("mkmsg"),foods=$("mkfoods");
+  if(!pane)return;
+  var ev=[],busy=false,posting=false,eatUntil=0,petUntil=0,pets=0,sig="",say="",sayMood="",petText=PET[0],wasVis=false,lastLoad=0;
+  function me(){try{var k=localStorage.getItem("sohbetkim")||localStorage.getItem("xoxkim")||"";return k==="Ramazan"||k==="Ayten"?k:"";}catch(e){return "";}}
+  function other(w){return w==="Ramazan"?"Ayten":"Ramazan";}
+  function food(k){for(var i=0;i<FOODS.length;i++)if(FOODS[i][0]===k)return FOODS[i];return null;}
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+  function state(list,now){
+    var a=list.slice().sort(function(x,y){return x.t-y.t;}),sat=30,prev=a.length?a[0].t:now;
+    a.forEach(function(e){var f=food(e.k);sat=Math.max(0,sat-DECAY*Math.max(0,e.t-prev)/36e5);prev=Math.max(prev,e.t);sat=Math.min(100,sat+(f?f[3]:0));});
+    return Math.round(Math.max(0,sat-DECAY*Math.max(0,now-prev)/36e5));
+  }
+  function moodOf(s){return s>=70?"happy":s>=40?"ok":s>=15?"sad":"hungry";}
+  function ago(ms){var m=Math.floor(Math.max(0,ms)/6e4);if(m<1)return "az önce";if(m<60)return m+" dk önce";var h=Math.floor(m/60);if(h<24)return h+" saat önce";return Math.floor(h/24)+" gün önce";}
+  function dkey(t){var n=new Date(t);return n.getFullYear()+"-"+n.getMonth()+"-"+n.getDate();}
+  function svg(m,joy){
+    var E="#3a2a22",C="#f2b27a",C2="#de9a5e",CR="#fff0dc",PK="#f7a6b5",eyes,mouth;
+    if(joy||m==="happy"){
+      eyes='<path d="M94 94 Q102 83 110 94M130 94 Q138 83 146 94" fill="none" stroke="'+E+'" stroke-width="3.6" stroke-linecap="round"/>';
+      mouth='<path d="M120 108 Q114 117 107 112M120 108 Q126 117 133 112" fill="none" stroke="'+E+'" stroke-width="2.6" stroke-linecap="round"/>';
+    }else{
+      eyes='<ellipse cx="102" cy="92" rx="5.5" ry="7.5" fill="'+E+'"/><ellipse cx="138" cy="92" rx="5.5" ry="7.5" fill="'+E+'"/><circle cx="104" cy="89" r="2" fill="#fff"/><circle cx="140" cy="89" r="2" fill="#fff"/>';
+      if(m==="sad"||m==="hungry")eyes+='<path d="M92 88L110 80M148 88L130 80" stroke="'+E+'" stroke-width="2.6" stroke-linecap="round"/>';
+      if(m==="hungry")eyes+='<path d="M160 66q7 11 0 16q-7-5 0-16z" fill="#8ecbff"/>';
+      mouth=m==="ok"?'<path d="M120 108 Q114 114 108 111M120 108 Q126 114 132 111" fill="none" stroke="'+E+'" stroke-width="2.6" stroke-linecap="round"/>':'<path d="M110 117 Q120 108 130 117" fill="none" stroke="'+E+'" stroke-width="2.6" stroke-linecap="round"/>';
+    }
+    if(joy==="eat")mouth='<ellipse cx="120" cy="113" rx="6" ry="5" fill="#c9566f"/>';
+    return '<svg viewBox="0 0 240 210" aria-hidden="true"><ellipse cx="120" cy="200" rx="72" ry="8" fill="rgba(0,0,0,.2)"/>'
+      +'<g class="mk-tail"><path d="M170 165C214 168 226 122 198 104" fill="none" stroke="'+C+'" stroke-width="16" stroke-linecap="round"/><path d="M204 118C210 128 208 140 200 148" fill="none" stroke="'+C2+'" stroke-width="5" stroke-linecap="round"/></g>'
+      +'<ellipse cx="120" cy="162" rx="54" ry="40" fill="'+C+'"/><ellipse cx="120" cy="172" rx="30" ry="26" fill="'+CR+'"/>'
+      +'<ellipse cx="96" cy="197" rx="17" ry="9" fill="'+CR+'"/><ellipse cx="144" cy="197" rx="17" ry="9" fill="'+CR+'"/>'
+      +'<g class="mk-head"><path d="M80 70L74 26L112 54Z" fill="'+C+'"/><path d="M160 70L166 26L128 54Z" fill="'+C+'"/><path d="M83 60L80 38L99 53Z" fill="'+PK+'"/><path d="M157 60L160 38L141 53Z" fill="'+PK+'"/>'
+      +'<circle cx="120" cy="96" r="46" fill="'+C+'"/><path d="M120 52v14M107 54l2 11M133 54l-2 11" stroke="'+C2+'" stroke-width="4" stroke-linecap="round"/>'
+      +'<ellipse cx="120" cy="108" rx="19" ry="13" fill="'+CR+'"/><circle cx="87" cy="106" r="7" fill="'+PK+'" opacity=".55"/><circle cx="153" cy="106" r="7" fill="'+PK+'" opacity=".55"/>'
+      +eyes+'<path d="M114 101h12l-6 7z" fill="#e98aa0"/>'+mouth
+      +'<path d="M92 106L62 99M92 111L62 114M148 106L178 99M148 111L178 114" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".8"/></g></svg>';
+  }
+  FOODS.forEach(function(f){
+    var b=document.createElement("button");b.type="button";b.className="mchip";b.textContent=f[1]+" "+f[2];
+    b.addEventListener("click",function(){feed(f[0]);});foods.appendChild(b);
+  });
+  function render(force){
+    var now=Date.now(),sat=state(ev,now),m=moodOf(sat),eating=now<eatUntil,purr=now<petUntil,w=me(),last=null;
+    ev.forEach(function(e){if(!last||e.t>last.t)last=e;});
+    var sg=[m,sat,eating,purr,ev.length,w,last&&last.t,Math.floor(now/6e4)].join("|");
+    if(!force&&sg===sig)return;sig=sg;
+    if(m!==sayMood||!say){sayMood=m;say=pick(SAY[m]);}
+    catB.className=(eating?"eat ":"")+(purr?"purr ":"")+"mk-"+m;
+    catB.innerHTML=svg(m,eating?"eat":purr?"purr":"");
+    bub.textContent=eating?"Nom nom nom 😋":purr?petText:say;
+    bar.style.width=sat+"%";tok.textContent="Tokluk %"+sat;hint.textContent=HINT[m];
+    var td=dkey(now),c={Ramazan:0,Ayten:0};ev.forEach(function(e){if(dkey(e.t)===td&&c[e.by]!==undefined)c[e.by]++;});
+    info.textContent=(last?"Son beslenme: "+last.by+" · "+ago(now-last.t):"Minik’i henüz beslemediniz")+" · Bugün: Ramazan "+c.Ramazan+" · Ayten "+c.Ayten;
+    [].forEach.call(foods.children,function(b){b.disabled=!w||sat>=FULL;});
+    if(!w)msg.textContent="Beslemek için sayfa açılışında kim olduğunu seç.";
+    else if(sat>=FULL&&!posting)msg.textContent="Minik şimdilik doydu 😸 Biraz sonra tekrar dene.";
+    else if(msg.textContent.indexOf("doydu")>=0||msg.textContent.indexOf("seç.")>=0)msg.textContent="";
+  }
+  function load(){
+    if(busy)return;busy=true;lastLoad=Date.now();
+    fetch(SB.url+"/rest/v1/kv?select=key,value&key=like."+encodeURIComponent("pt:*")+"&order=key.desc&limit=60",{headers:{apikey:SB.key}})
+    .then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(rows){
+      busy=false;
+      var srv=rows.map(function(r){return r.value;}).filter(function(v){return v&&v.t&&v.by&&food(v.k);});
+      var keep=ev.filter(function(e){return e.pending&&!srv.some(function(x){return x.t===e.t&&x.by===e.by;});});
+      ev=srv.concat(keep);render();
+    }).catch(function(){busy=false;});
+  }
+  function spawn(cls,txt,css){var e=document.createElement("span");e.className=cls;e.textContent=txt;for(var k in css)e.style[k]=css[k];stage.appendChild(e);setTimeout(function(){e.remove();},1300);}
+  function feed(k){
+    var w=me(),f=food(k);if(!w||!f||posting)return;
+    var now=Date.now();
+    if(state(ev,now)>=FULL){msg.textContent="Minik şimdilik doydu 😸 Biraz sonra tekrar dene.";return;}
+    var val={by:w,k:k,t:now},local={by:w,k:k,t:now,pending:true};
+    ev.push(local);eatUntil=now+3600;posting=true;msg.textContent="";
+    spawn("mkfood",f[1],{});render(true);
+    fetch(SB.url+"/rest/v1/kv",{method:"POST",headers:{apikey:SB.key,"Content-Type":"application/json",Prefer:"return=minimal"},
+      body:JSON.stringify({key:"pt:"+now+"-"+Math.random().toString(36).slice(2,6),value:val,updated_at:new Date(now).toISOString()})})
+    .then(function(r){
+      if(!r.ok)throw 0;delete local.pending;posting=false;
+      msg.textContent="Afiyet olsun, Minik teşekkür ediyor 💜";
+      if(window.bildir)bildir(other(w),"🐱 Minik",w+" Minik’i besledi "+f[1],"minik",15000);
+      render(true);
+    }).catch(function(){posting=false;ev=ev.filter(function(e){return e!==local;});eatUntil=0;msg.textContent="Gönderilemedi, interneti kontrol edip tekrar dene.";render(true);});
+  }
+  function pet(){
+    var now=Date.now();pets++;petUntil=now+2300;
+    petText=pets%7===0?"Tamam tamam, yeter 😼":pick(PET);
+    try{if(navigator.vibrate)navigator.vibrate(12);}catch(e){}
+    for(var i=0;i<3;i++)(function(i){setTimeout(function(){spawn("gpop",["💜","💕","❤️"][i],{left:(28+Math.random()*44)+"%",top:(18+Math.random()*22)+"%",fontSize:"1.5rem"});},i*160);})(i);
+    render(true);
+  }
+  catB.addEventListener("click",pet);$("mkpet").addEventListener("click",pet);
+  render(true);
+  setInterval(function(){
+    var vis=pane.offsetParent!==null&&!document.hidden;
+    if(vis&&(!wasVis||Date.now()-lastLoad>20000))load();
+    if(vis)render();
+    wasVis=vis;
+  },1000);
+  window.minikState=function(list,now){return state(list,now);};
 })();
 
 /* ---- Alt sekmeler ---- */
